@@ -368,9 +368,16 @@
       </div>
       <div class="footer-section">
         <h3>Payment Information</h3>
-        <p>Sort Code: 04-00-06</p>
-        <p>Account Number: 91557044</p>
-        <p>IBAN: GB96 MONZ 0400 0691 5570 44</p>
+        <? if (isUs) { ?>
+          <p>Account type: Checking</p>
+          <p>Routing number (for wire and ACH): 026073150</p>
+          <p>Account number: 8312949203</p>
+          <p>Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United States</p>
+        <? } else { ?>
+          <p>Sort Code: 04-00-06</p>
+          <p>Account Number: 91557044</p>
+          <p>IBAN: GB96 MONZ 0400 0691 5570 44</p>
+        <? } ?>
       </div>
     </div>
   </div>

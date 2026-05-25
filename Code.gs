@@ -283,6 +283,15 @@ function generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname)
   template.lowestRow = startRow + numRows - 1;
   template.clientNickname = clientNickname;
   
+  var isUs = false;
+  if (clientDetails) {
+    var addrUpper = String(clientDetails).toUpperCase();
+    var hasUs = /\b(US|USA|U\.S\.A\.|UNITED STATES|UNITED STATES OF AMERICA)\b/i.test(addrUpper);
+    var hasUk = /\b(UK|U\.K\.|UNITED KINGDOM|GREAT BRITAIN|GB)\b/i.test(addrUpper);
+    isUs = hasUs && !hasUk;
+  }
+  template.isUs = isUs;
+  
   var now = new Date();
   var dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
   template.currentDate = now.toLocaleDateString('en-GB', dateOptions);

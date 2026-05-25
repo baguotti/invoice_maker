@@ -114,7 +114,7 @@
       document.querySelector('.btn').textContent = "Generating...";
       document.querySelector('.btn').disabled = true;
       
-      google.script.run.generateInvoiceHTML(clientDetails, invoiceNum, forText);
+      google.script.run.generateInvoiceHTML(clientDetails, invoiceNum, forText, clientVal);
     }
   </script>
 </body>
