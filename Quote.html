@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+  <title><?= documentTitle ?></title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F2EB;
+      --text: #111111;
+      --border: #111111;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 60px;
+      color: var(--text);
+      background-color: var(--bg);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .invoice-container {
+      max-width: 800px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 120px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 110px;
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 0.9;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .header-right p {
+      margin: 2px 0;
+    }
+
+    .header-right .bold {
+      font-weight: 700;
+    }
+
+    .billed-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 0 0 60px 0;
+      font-size: 13px;
+    }
+
+    .billed-grid > div:last-child {
+      text-align: right;
+    }
+
+    .billed-grid h3 {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      margin: 0 0 12px 0;
+    }
+
+    .billed-grid p {
+      margin: 2px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 20px 10px;
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-left: 0;
+    }
+
+    th:last-child,
+    td:last-child {
+      padding-right: 0;
+    }
+
+    th.center,
+    td.center {
+      text-align: center;
+    }
+
+    th.num,
+    td.num {
+      text-align: right;
+    }
+
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      font-size: 11px;
+      margin-top: auto;
+      padding-top: 60px;
+    }
+
+    .footer-grid > div:last-child {
+      text-align: right;
+    }
+
+    .footer-section h3 {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      margin: 0 0 12px 0;
+    }
+
+    .footer-section p {
+      margin: 2px 0;
+    }
+
+    .print-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 200px;
+      margin: 60px auto 0;
+      padding: 12px 24px;
+      background-color: var(--text);
+      color: var(--bg);
+      text-align: center;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: var(--bg);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 40px;
+      }
+
+      .invoice-container {
+        min-height: calc(297mm - 80px);
+      }
+
+      .print-btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="invoice-container">
+    <header>
+      <div class="header-left">
+        <h1>Quote</h1>
+      </div>
+      <div class="header-right">
+        <p>
+          <?= quoteDate ?>
+        </p>
+      </div>
+    </header>
+
+
+
+    <div class="billed-grid">
+      <div>
+        <h3>For:</h3>
+        <p>
+          <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
+        </p>
+      </div>
+      <div>
+        <h3>Day Rate:</h3>
+        <p>
+          <?= currency ?><?= dayRate ?>
+        </p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Description</th>
+          <th class="center" style="width: 60px;">Days</th>
+          <th class="num" style="width: 100px;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <? for (var i = 0; i < groupedData.length; i++) { ?>
+        <tr>
+          <td style="font-weight: 700; width: 220px; vertical-align: top;">
+            <?= groupedData[i].item ?>
+          </td>
+          <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;">
+            <?= groupedData[i].description ?>
+          </td>
+          <td class="center" style="vertical-align: top;">
+            <?= groupedData[i].days ?>
+          </td>
+          <td class="num" style="vertical-align: top;">
+            <?= currency ?><?= groupedData[i].totalDisplay ?>
+          </td>
+
+        </tr>
+        <? } ?>
+      </tbody>
+      <tfoot>
+        <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+          <td style="padding-top: 24px;">Total</td>
+          <td style="padding-top: 24px;"></td>
+          <td class="center" style="padding-top: 24px;">
+            <?= totalDays ?>
+          </td>
+          <td class="num" style="padding-top: 24px;">
+            <?= currency ?><?= totalFeeDisplay ?>
+          </td>
+
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="footer-grid" style="grid-template-columns: 1fr;">
+      <div class="footer-section">
+        <h3>Riccardo Fusetti</h3>
+        <p>Flat 25, Bellmaker Court</p>
+        <p>136 St. Pauls Way, London E3 4AD</p>
+        <p>079 18 993 398</p>
+        <p>fusetti.riccardo@gmail.com</p>
+        <p>riccardofusetti.com</p>
+      </div>
+    </div>
+
+    <div class="small-print" style="margin-top: 60px; font-size: 10px; color: #666; border-top: 1px solid var(--border); padding-top: 20px; line-height: 1.4; text-align: center;">
+      <p style="margin: 0;">All additional work, revisions beyond the agreed scope, or new deliverables must be approved in writing and may be subject to additional fees. Work will not commence on new requests without prior sign-off.</p>
+    </div>
+  </div>
+
+  <button class="print-btn no-print" onclick="printPdf()">
+    <svg class="print-icon" style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z">
+      </path>
+    </svg>
+    Print to PDF
+  </button>
+
+  <script>
+    function printPdf() {
+      var title = <?= JSON.stringify(documentTitle) ?>;
+      
+      // Clone the document
+      var clone = document.documentElement.cloneNode(true);
+      
+      // Remove the print button and scripts from the clone
+      var btn = clone.querySelector('.print-btn');
+      if (btn) btn.parentNode.removeChild(btn);
+      var scripts = clone.querySelectorAll('script');
+      for (var i = 0; i < scripts.length; i++) {
+        scripts[i].parentNode.removeChild(scripts[i]);
+      }
+      
+      // Try to open a new tab to escape the Google Sheets iframe sandbox
+      var printWin = window.open('', '_blank');
+      
+      if (printWin) {
+        printWin.document.open();
+        printWin.document.write('<!DOCTYPE html>\n<html><head><title>' + title + '</title>');
+        printWin.document.write(clone.querySelector('head').innerHTML);
+        printWin.document.write('</head><body>');
+        printWin.document.write(clone.querySelector('body').innerHTML);
+        // Force the title again via JS before printing, just to be safe
+        printWin.document.write('<script>window.onload = function() { document.title = ' + JSON.stringify(title) + '; setTimeout(function() { window.print(); }, 500); }<\/script>');
+        printWin.document.write('</body></html>');
+        printWin.document.close();
+      } else {
+        // If the browser blocks the popup, fall back to printing the iframe
+        alert("Pop-up blocked!\n\nTo save the PDF with the correct automated filename, please click the 'Pop-up blocked' icon in your browser's address bar and select 'Always allow pop-ups'.\n\nClick OK to proceed with printing anyway (it will default to the sheet's name).");
+        document.title = title;
+        window.print();
+      }
+    }
+  </script>
+</body>
+</html>

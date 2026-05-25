@@ -1,0 +1,519 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red109\green109\blue109;\red246\green247\blue249;\red251\green0\blue7;
+\red46\green49\blue51;\red42\green42\blue42;\red20\green67\blue174;\red18\green115\blue126;\red162\green0\blue16;
+\red97\green3\blue173;\red9\green60\blue148;\red19\green118\blue70;\red77\green80\blue85;\red0\green0\blue0;
+\red186\green6\blue115;}
+{\*\expandedcolortbl;;\cssrgb\c50196\c50196\c50196;\cssrgb\c97255\c97647\c98039;\cssrgb\c100000\c0\c0;
+\cssrgb\c23529\c25098\c26275;\cssrgb\c21961\c21961\c21961;\cssrgb\c9412\c35294\c73725;\cssrgb\c3529\c52157\c56863;\cssrgb\c70196\c7843\c7059;
+\cssrgb\c46275\c15294\c73333;\cssrgb\c1569\c31765\c64706;\cssrgb\c3529\c52549\c34510;\cssrgb\c37255\c38824\c40784;\cssrgb\c0\c0\c0;
+\cssrgb\c78824\c15294\c52549;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 <!DOCTYPE\cf4 \strokec4  html\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 html\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 head\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 base\cf5 \strokec5  \cf8 \strokec8 target\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "_top"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 title\cf6 \cb3 \strokec6 ><\cf5 \cb3 \strokec5 ?= documentTitle ?>\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 title\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 link\cf5 \strokec5  \cf8 \strokec8 href\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"\cf5 \strokec5  \cf8 \strokec8 rel\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "stylesheet"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 script\cf5 \strokec5  \cf8 \strokec8 src\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"\cf6 \cb3 \strokec6 ></\cf7 \cb3 \strokec7 script\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 style\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf10 \strokec10 :root\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 --bg:\cf5 \strokec5  \cf11 \cb3 \strokec11 #F4F2EB\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 --text:\cf5 \strokec5  \cf11 \cb3 \strokec11 #111111\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 --border:\cf5 \strokec5  \cf11 \cb3 \strokec11 #111111\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 body\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 font-family:\cf5 \strokec5  \cf9 \strokec9 'Inter'\cf5 \strokec5 , \cf9 \strokec9 sans-serif\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 40px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf9 \strokec9 var(--text)\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 background-color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #E5E3DB\cf5 \cb3 \strokec5 ; \cf13 \strokec13 /* A slightly darker shade to contrast the sheet */\cf5 \cb1 \strokec5 \
+\cb3       \cf8 \strokec8 line-height:\cf5 \strokec5  \cf12 \cb3 \strokec12 1.5\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 13px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .pdf-page-wrapper\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 background-color:\cf5 \strokec5  \cf9 \strokec9 var(--bg)\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 box-sizing:\cf5 \strokec5  \cf9 \strokec9 border-box\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 800px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 min-height:\cf5 \strokec5  \cf12 \cb3 \strokec12 1110px\cf5 \cb3 \strokec5 ; \cf13 \strokec13 /* Adjusted to prevent blank second page */\cf5 \cb1 \strokec5 \
+\cb3       \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf9 \strokec9 auto\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 flex\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 flex-direction:\cf5 \strokec5  \cf9 \strokec9 column\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 box-shadow:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 30px\cf5 \cb3 \strokec5  \cf9 \strokec9 rgba(\cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 0.05\cf9 \cb3 \strokec9 )\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .invoice-container\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 100%\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 flex\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 flex-direction:\cf5 \strokec5  \cf9 \strokec9 column\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 flex:\cf5 \strokec5  \cf12 \cb3 \strokec12 1\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 header\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 flex\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 justify-content:\cf5 \strokec5  \cf9 \strokec9 space-between\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 align-items:\cf5 \strokec5  \cf9 \strokec9 flex-end\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-bottom:\cf5 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .header-left\cf5 \strokec5  \cf10 \strokec10 h1\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 110px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 900\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 letter-spacing:\cf5 \strokec5  \cf12 \cb3 \strokec12 -4px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 line-height:\cf5 \strokec5  \cf12 \cb3 \strokec12 0.9\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .header-right\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 right\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 13px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 500\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-bottom:\cf5 \strokec5  \cf12 \cb3 \strokec12 14px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .header-right\cf5 \strokec5  \cf10 \strokec10 p\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 2px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .header-right\cf5 \strokec5  \cf10 \strokec10 .bold\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 700\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .billed-grid\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 grid\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 grid-template-columns:\cf5 \strokec5  \cf12 \cb3 \strokec12 1fr\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 1fr\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 gap:\cf5 \strokec5  \cf12 \cb3 \strokec12 40px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 13px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .billed-grid\cf5 \strokec5  > \cf10 \strokec10 div:last-child\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 right\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .billed-grid\cf5 \strokec5  \cf10 \strokec10 h3\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-transform:\cf5 \strokec5  \cf9 \strokec9 uppercase\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 letter-spacing:\cf5 \strokec5  \cf12 \cb3 \strokec12 1.5px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #666\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 12px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .billed-grid\cf5 \strokec5  \cf10 \strokec10 p\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 2px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 table\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 100%\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border-collapse:\cf5 \strokec5  \cf9 \strokec9 collapse\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-top:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-bottom:\cf5 \strokec5  \cf12 \cb3 \strokec12 40px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th\cf5 \strokec5 ,\cb1 \
+\cb3     \cf10 \strokec10 td\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 left\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 13px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-transform:\cf5 \strokec5  \cf9 \strokec9 uppercase\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 letter-spacing:\cf5 \strokec5  \cf12 \cb3 \strokec12 1.5px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #666\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 12px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border-bottom:\cf5 \strokec5  \cf12 \cb3 \strokec12 1px\cf5 \cb3 \strokec5  \cf9 \strokec9 solid\cf5 \strokec5  \cf9 \strokec9 var(--border)\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 td\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 20px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th:first-child\cf5 \strokec5 ,\cb1 \
+\cb3     \cf10 \strokec10 td:first-child\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 padding-left:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th:last-child\cf5 \strokec5 ,\cb1 \
+\cb3     \cf10 \strokec10 td:last-child\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 padding-right:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th.center\cf5 \strokec5 ,\cb1 \
+\cb3     \cf10 \strokec10 td.center\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 th.num\cf5 \strokec5 ,\cb1 \
+\cb3     \cf10 \strokec10 td.num\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 right\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\
+\cb3     \cf10 \strokec10 .footer-grid\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 grid\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 grid-template-columns:\cf5 \strokec5  \cf12 \cb3 \strokec12 1fr\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 1fr\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 gap:\cf5 \strokec5  \cf12 \cb3 \strokec12 40px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 11px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-top:\cf5 \strokec5  \cf9 \strokec9 auto\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 padding-top:\cf5 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .footer-grid\cf5 \strokec5  > \cf10 \strokec10 div:last-child\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 right\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .footer-section\cf5 \strokec5  \cf10 \strokec10 h3\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 10px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-transform:\cf5 \strokec5  \cf9 \strokec9 uppercase\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 letter-spacing:\cf5 \strokec5  \cf12 \cb3 \strokec12 1.5px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #666\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 12px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .footer-section\cf5 \strokec5  \cf10 \strokec10 p\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 2px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .print-btn\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 flex\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 align-items:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 justify-content:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 gap:\cf5 \strokec5  \cf12 \cb3 \strokec12 8px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 200px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5  \cf9 \strokec9 auto\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 12px\cf5 \cb3 \strokec5  \cf12 \cb3 \strokec12 24px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 background-color:\cf5 \strokec5  \cf9 \strokec9 var(--text)\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf9 \strokec9 var(--bg)\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border:\cf5 \strokec5  \cf9 \strokec9 none\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 14px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 cursor:\cf5 \strokec5  \cf9 \strokec9 pointer\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border-radius:\cf5 \strokec5  \cf12 \cb3 \strokec12 4px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf13 \strokec13 /* Status styles */\cf5 \cb1 \strokec5 \
+\cb3     \cf10 \strokec10 .status-container\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 none\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 flex-direction:\cf5 \strokec5  \cf9 \strokec9 column\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 align-items:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-top:\cf5 \strokec5  \cf12 \cb3 \strokec12 20px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-bottom:\cf5 \strokec5  \cf12 \cb3 \strokec12 20px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-size:\cf5 \strokec5  \cf12 \cb3 \strokec12 13px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 500\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-align:\cf5 \strokec5  \cf9 \strokec9 center\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 \strokec10 .status-text\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 margin-top:\cf5 \strokec5  \cf12 \cb3 \strokec12 8px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #666\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 transition:\cf5 \strokec5  \cf9 \strokec9 color\cf5 \strokec5  \cf12 \cb3 \strokec12 0.3s\cf5 \cb3 \strokec5  \cf9 \strokec9 ease\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 line-height:\cf5 \strokec5  \cf12 \cb3 \strokec12 1.6\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 \strokec10 .status-text.success\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #2e7d32\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\cb3     \cb1 \
+\cb3     \cf10 \strokec10 .status-text.error\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #c62828\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf10 \strokec10 .status-link\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 color:\cf5 \strokec5  \cf11 \cb3 \strokec11 #111111\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 text-decoration:\cf5 \strokec5  \cf9 \strokec9 underline\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin-top:\cf5 \strokec5  \cf12 \cb3 \strokec12 4px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 font-weight:\cf5 \strokec5  \cf12 \cb3 \strokec12 600\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 inline-block\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf13 \strokec13 /* CSS Spinner */\cf5 \cb1 \strokec5 \
+\cb3     \cf10 \strokec10 .spinner\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 inline-block\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 20px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 height:\cf5 \strokec5  \cf12 \cb3 \strokec12 20px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border:\cf5 \strokec5  \cf12 \cb3 \strokec12 2px\cf5 \cb3 \strokec5  \cf9 \strokec9 solid\cf5 \strokec5  \cf9 \strokec9 rgba(\cf12 \cb3 \strokec12 17\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 17\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 17\cf5 \cb3 \strokec5 , \cf12 \cb3 \strokec12 0.1\cf9 \cb3 \strokec9 )\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border-radius:\cf5 \strokec5  \cf12 \cb3 \strokec12 50%\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 border-top-color:\cf5 \strokec5  \cf9 \strokec9 var(--text)\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 animation:\cf5 \strokec5  \cf9 \strokec9 spin\cf5 \strokec5  \cf12 \cb3 \strokec12 0.8s\cf5 \cb3 \strokec5  \cf9 \strokec9 ease-in-out\cf5 \strokec5  \cf9 \strokec9 infinite\cf5 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf7 \strokec7 @keyframes\cf5 \strokec5  \cf9 \strokec9 spin\cf5 \strokec5  \{\cb1 \
+\cb3       \cf9 \strokec9 to\cf5 \strokec5  \{ \cf8 \strokec8 transform:\cf5 \strokec5  \cf9 \strokec9 rotate(\cf12 \cb3 \strokec12 360deg\cf9 \cb3 \strokec9 )\cf5 \strokec5 ; \}\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf7 \strokec7 @page\cf5 \strokec5  \{\cb1 \
+\cb3       \cf8 \strokec8 size:\cf5 \strokec5  \cf9 \strokec9 A4\cf5 \strokec5 ;\cb1 \
+\cb3       \cf8 \strokec8 margin:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     @\cf10 \strokec10 media\cf5 \strokec5  \cf10 \strokec10 print\cf5 \strokec5  \{\cb1 \
+\cb3       body \{\cb1 \
+\cb3         \cf8 \strokec8 background-color:\cf5 \strokec5  \cf9 \strokec9 var(--bg)\cf5 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 -webkit-print-color-adjust:\cf5 \strokec5  \cf9 \strokec9 exact\cf5 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 print-color-adjust:\cf5 \strokec5  \cf9 \strokec9 exact\cf5 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 0\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3       \}\cb1 \
+\
+\cb3       \cf10 \strokec10 .pdf-page-wrapper\cf5 \strokec5  \{\cb1 \
+\cb3         \cf8 \strokec8 width:\cf5 \strokec5  \cf12 \cb3 \strokec12 100%\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 min-height:\cf5 \strokec5  \cf12 \cb3 \strokec12 100%\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 padding:\cf5 \strokec5  \cf12 \cb3 \strokec12 60px\cf5 \cb3 \strokec5 ;\cb1 \
+\cb3         \cf8 \strokec8 box-shadow:\cf5 \strokec5  \cf9 \strokec9 none\cf5 \strokec5 ;\cb1 \
+\cb3       \}\cb1 \
+\
+\cb3       \cf10 \strokec10 .invoice-container\cf5 \strokec5  \{\cb1 \
+\cb3         \cf8 \strokec8 min-height:\cf5 \strokec5  \cf9 \strokec9 calc(\cf12 \cb3 \strokec12 297mm\cf5 \cb3 \strokec5  - \cf12 \cb3 \strokec12 120px\cf9 \cb3 \strokec9 )\cf5 \strokec5 ;\cb1 \
+\cb3       \}\cb1 \
+\
+\cb3       \cf10 \strokec10 .print-btn\cf5 \strokec5  \{\cb1 \
+\cb3         \cf8 \strokec8 display:\cf5 \strokec5  \cf9 \strokec9 none\cf5 \strokec5 ;\cb1 \
+\cb3       \}\cb1 \
+\cb3     \}\cb1 \
+\cb3   \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 style\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 head\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 body\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "pdf-page-wrapper"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "invoice-container"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 header\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "header-left"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h1\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Invoice\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h1\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "header-right"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= currentDate ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "bold"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Invoice No.\cb1 \
+\cb3           \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= invoiceNum ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 header\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\
+\
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "billed-grid"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Billed to:\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?!= clientDetails ? clientDetails.replace(/\\n/g, '\cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 br\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 ') : '' ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 For:\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= forText ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h3\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "margin-top: 15px;"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Billing Period:\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= intervalStr ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 table\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 thead\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 tr\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Description\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Dates\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 th\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "center"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Rate\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 th\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "center"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Days\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 th\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "num"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Amount\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 th\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 tr\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 thead\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 tbody\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ? for (var i = 0; i \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5  groupedData.length; i++) \{ ?>\cb1 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 tr\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= groupedData[i].weekLabel ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= groupedData[i].datesWorked ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "center"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= groupedData[i].rateDisplay ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "center"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= groupedData[i].days ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "num"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= currency ?>\cb1 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= groupedData[i].totalDisplay ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 tr\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ? \} ?>\cb1 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 tbody\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 tfoot\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 tr\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 colspan\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "3"\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "text-align: right; padding-right: 20px; padding-top: 24px;"\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Total\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "center"\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "padding-top: 24px;"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= totalDays ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3           \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 td\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "num"\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "padding-top: 24px;"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= currency ?>\cb1 \
+\cb3             \cf6 \cb3 \strokec6 <\cf5 \cb3 \strokec5 ?= totalFeeDisplay ?>\cb1 \
+\cb3           \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 td\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 tr\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 tfoot\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 table\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "footer-grid"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "footer-section"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Riccardo Fusetti\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Flat 25, Bellmaker Court\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 136 St. Pauls Way, London E3 4AD\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 079 18 993 398\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 fusetti.riccardo@gmail.com\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 riccardofusetti.com\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "footer-section"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Payment Information\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 h3\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Sort Code: 04-00-06\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 Account Number: 91557044\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3         \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb3 \strokec5 IBAN: GB96 MONZ 0400 0691 5570 44\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 p\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf5 \cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 button\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "print-btn no-print"\cf5 \strokec5  \cf8 \strokec8 onclick\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "savePdf()"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 svg\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "print-icon"\cf5 \strokec5  \cf8 \strokec8 style\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "width:16px;height:16px"\cf5 \strokec5  \cf8 \strokec8 fill\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "none"\cf5 \strokec5  \cf8 \strokec8 stroke\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "currentColor"\cf5 \strokec5  \cf8 \strokec8 viewBox\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "0 0 24 24"\cf5 \cb1 \strokec5 \
+\cb3       \cf8 \strokec8 xmlns\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "http://www.w3.org/2000/svg"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 path\cf5 \strokec5  \cf8 \strokec8 stroke-linecap\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "round"\cf5 \strokec5  \cf8 \strokec8 stroke-linejoin\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "round"\cf5 \strokec5  \cf8 \strokec8 stroke-width\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "2"\cf5 \cb1 \strokec5 \
+\cb3         \cf8 \strokec8 d\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3       \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 path\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 svg\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     Save PDF & Upload to Drive\cb1 \
+\cb3   \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 button\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 id\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "status-container"\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "status-container no-print"\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 div\cf5 \strokec5  \cf8 \strokec8 id\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "status-text"\cf5 \strokec5  \cf8 \strokec8 class\cf6 \cb3 \strokec6 =\cf9 \cb3 \strokec9 "status-text"\cf6 \cb3 \strokec6 ></\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3   \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 div\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\
+\cb3   \cf6 \cb3 \strokec6 <\cf7 \cb3 \strokec7 script\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cb3     \cf7 \strokec7 function\cf5 \strokec5  \strokec14 savePdf\strokec5 () \{\cb1 \
+\cb3       \cf13 \strokec13 // Prevent scroll-offset rendering bugs by scrolling to top\cf5 \cb1 \strokec5 \
+\cb3       \strokec14 window\strokec5 .\strokec14 scrollTo\strokec5 (\cf8 \strokec8 0\cf5 \strokec5 , \cf8 \strokec8 0\cf5 \strokec5 );\cb1 \
+\cb3       \cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 title\strokec5  = <?= \cf15 \strokec15 JSON\cf5 \strokec5 .\strokec14 stringify\strokec5 (\strokec14 documentTitle\strokec5 ) ?>;\cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 invoiceNum\strokec5  = <?= \cf15 \strokec15 JSON\cf5 \strokec5 .\strokec14 stringify\strokec5 (\strokec14 invoiceNum\strokec5 ) ?>;\cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 lowestRow\strokec5  = <?= \strokec14 lowestRow\strokec5  ?>;\cb1 \
+\cb3       \cb1 \
+\cb3       \cf13 \strokec13 // Replace non-alphanumeric characters with underscores and collapse multiples\cf5 \cb1 \strokec5 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 cleanFileName\strokec5  = \strokec14 title\strokec5 .\strokec14 replace\strokec5 (\cf10 \strokec10 /[^a-zA-Z0-9_]/\cf7 \strokec7 g\cf5 \strokec5 , \cf9 \strokec9 '_'\cf5 \strokec5 ).\strokec14 replace\strokec5 (\cf10 \strokec10 /_+/\cf7 \strokec7 g\cf5 \strokec5 , \cf9 \strokec9 '_'\cf5 \strokec5 ) + \cf9 \strokec9 '.pdf'\cf5 \strokec5 ;\cb1 \
+\cb3       \cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 btn\strokec5  = \strokec14 document\strokec5 .\strokec14 querySelector\strokec5 (\cf9 \strokec9 '.print-btn'\cf5 \strokec5 );\cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 statusContainer\strokec5  = \strokec14 document\strokec5 .\strokec14 getElementById\strokec5 (\cf9 \strokec9 'status-container'\cf5 \strokec5 );\cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 statusText\strokec5  = \strokec14 document\strokec5 .\strokec14 getElementById\strokec5 (\cf9 \strokec9 'status-text'\cf5 \strokec5 );\cb1 \
+\cb3       \cb1 \
+\cb3       \cf13 \strokec13 // Update UI to show generating\cf5 \cb1 \strokec5 \
+\cb3       \strokec14 btn\strokec5 .\strokec14 disabled\strokec5  = \cf7 \strokec7 true\cf5 \strokec5 ;\cb1 \
+\cb3       \strokec14 btn\strokec5 .\strokec14 style\strokec5 .\strokec14 opacity\strokec5  = \cf9 \strokec9 '0.5'\cf5 \strokec5 ;\cb1 \
+\cb3       \strokec14 statusContainer\strokec5 .\strokec14 style\strokec5 .\strokec14 display\strokec5  = \cf9 \strokec9 'flex'\cf5 \strokec5 ;\cb1 \
+\cb3       \strokec14 statusText\strokec5 .\strokec14 className\strokec5  = \cf9 \strokec9 'status-text'\cf5 \strokec5 ;\cb1 \
+\cb3       \strokec14 statusText\strokec5 .\strokec14 innerHTML\strokec5  = \cf9 \strokec9 '<div class="spinner"></div><div style="margin-top: 8px;">Generating PDF...</div>'\cf5 \strokec5 ;\cb1 \
+\cb3       \cb1 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 element\strokec5  = \strokec14 document\strokec5 .\strokec14 querySelector\strokec5 (\cf9 \strokec9 '.pdf-page-wrapper'\cf5 \strokec5 );\cb1 \
+\cb3       \cb1 \
+\cb3       \cf13 \strokec13 // html2pdf options\cf5 \cb1 \strokec5 \
+\cb3       \cf7 \strokec7 var\cf5 \strokec5  \strokec14 opt\strokec5  = \{\cb1 \
+\cb3         \strokec14 margin\strokec5 :       \cf8 \strokec8 0\cf5 \strokec5 , \cf13 \strokec13 // Full-bleed to preserve background color and formatting\cf5 \cb1 \strokec5 \
+\cb3         \strokec14 filename\strokec5 :     \strokec14 cleanFileName\strokec5 ,\cb1 \
+\cb3         \strokec14 image\strokec5 :        \{ \strokec14 type\strokec5 : \cf9 \strokec9 'jpeg'\cf5 \strokec5 , \strokec14 quality\strokec5 : \cf8 \strokec8 0.98\cf5 \strokec5  \},\cb1 \
+\cb3         \strokec14 html2canvas\strokec5 :  \{ \cb1 \
+\cb3           \strokec14 scale\strokec5 : \cf8 \strokec8 2\cf5 \strokec5 , \cb1 \
+\cb3           \strokec14 useCORS\strokec5 : \cf7 \strokec7 true\cf5 \strokec5 , \cb1 \
+\cb3           \strokec14 backgroundColor\strokec5 : \cf9 \strokec9 '#F4F2EB'\cf5 \strokec5 ,\cb1 \
+\cb3           \strokec14 letterRendering\strokec5 : \cf7 \strokec7 true\cf5 \strokec5 ,\cb1 \
+\cb3           \strokec14 scrollX\strokec5 : \cf8 \strokec8 0\cf5 \strokec5 ,\cb1 \
+\cb3           \strokec14 scrollY\strokec5 : \cf8 \strokec8 0\cf5 \strokec5 ,\cb1 \
+\cb3           \strokec14 ignoreElements\strokec5 : \cf7 \strokec7 function\cf5 \strokec5 (\strokec14 element\strokec5 ) \{\cb1 \
+\cb3             \cf7 \strokec7 return\cf5 \strokec5  \strokec14 element\strokec5 .\strokec14 classList\strokec5 .\strokec14 contains\strokec5 (\cf9 \strokec9 'no-print'\cf5 \strokec5 );\cb1 \
+\cb3           \}\cb1 \
+\cb3         \},\cb1 \
+\cb3         \strokec14 jsPDF\strokec5 :        \{ \strokec14 unit\strokec5 : \cf9 \strokec9 'mm'\cf5 \strokec5 , \strokec14 format\strokec5 : \cf9 \strokec9 'a4'\cf5 \strokec5 , \strokec14 orientation\strokec5 : \cf9 \strokec9 'portrait'\cf5 \strokec5  \},\cb1 \
+\cb3         \strokec14 pagebreak\strokec5 :    \{ \strokec14 mode\strokec5 : \cf9 \strokec9 'avoid-all'\cf5 \strokec5  \}\cb1 \
+\cb3       \};\cb1 \
+\cb3       \cb1 \
+\cb3       \cf13 \strokec13 // Generate PDF exactly once\cf5 \cb1 \strokec5 \
+\cb3       \strokec14 html2pdf\strokec5 ().\cf7 \strokec7 from\cf5 \strokec5 (\strokec14 element\strokec5 ).\cf7 \strokec7 set\cf5 \strokec5 (\strokec14 opt\strokec5 ).\strokec14 toPdf\strokec5 ().\strokec14 outputPdf\strokec5 (\cf9 \strokec9 'datauristring'\cf5 \strokec5 ).\strokec14 then\strokec5 (\cf7 \strokec7 function\cf5 \strokec5 (\strokec14 pdfBase64\strokec5 ) \{\cb1 \
+\cb3         \strokec14 statusText\strokec5 .\strokec14 innerHTML\strokec5  = \cf9 \strokec9 '<div class="spinner"></div><div style="margin-top: 8px;">Uploading to Google Drive...</div>'\cf5 \strokec5 ;\cb1 \
+\cb3         \cb1 \
+\cb3         \cf7 \strokec7 var\cf5 \strokec5  \strokec14 base64\strokec5  = \strokec14 pdfBase64\strokec5 .\strokec14 split\strokec5 (\cf9 \strokec9 ','\cf5 \strokec5 )[\cf8 \strokec8 1\cf5 \strokec5 ];\cb1 \
+\cb3         \cb1 \
+\cb3         \strokec14 google\strokec5 .\strokec14 script\strokec5 .\strokec14 run\cb1 \strokec5 \
+\cb3           .\strokec14 withSuccessHandler\strokec5 (\cf7 \strokec7 function\cf5 \strokec5 (\strokec14 driveUrl\strokec5 ) \{\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 className\strokec5  = \cf9 \strokec9 'status-text success'\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 innerHTML\strokec5  = \cf9 \strokec9 '\uc0\u10003  Successfully saved to Google Drive!'\cf5 \strokec5 ;\cb1 \
+\cb3             \cb1 \
+\cb3             \cf13 \strokec13 // Add a link to open the file in Drive\cf5 \cb1 \strokec5 \
+\cb3             \cf7 \strokec7 var\cf5 \strokec5  \strokec14 link\strokec5  = \strokec14 document\strokec5 .\strokec14 createElement\strokec5 (\cf9 \strokec9 'a'\cf5 \strokec5 );\cb1 \
+\cb3             \strokec14 link\strokec5 .\strokec14 href\strokec5  = \strokec14 driveUrl\strokec5 ;\cb1 \
+\cb3             \strokec14 link\strokec5 .\strokec14 target\strokec5  = \cf9 \strokec9 '_blank'\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 link\strokec5 .\strokec14 className\strokec5  = \cf9 \strokec9 'status-link'\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 link\strokec5 .\strokec14 innerText\strokec5  = \cf9 \strokec9 'Open PDF in Google Drive'\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 appendChild\strokec5 (\strokec14 document\strokec5 .\strokec14 createElement\strokec5 (\cf9 \strokec9 'br'\cf5 \strokec5 ));\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 appendChild\strokec5 (\strokec14 link\strokec5 );\cb1 \
+\cb3             \cb1 \
+\cb3             \strokec14 btn\strokec5 .\strokec14 disabled\strokec5  = \cf7 \strokec7 false\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 btn\strokec5 .\strokec14 style\strokec5 .\strokec14 opacity\strokec5  = \cf9 \strokec9 '1'\cf5 \strokec5 ;\cb1 \
+\cb3             \cb1 \
+\cb3             \cf13 \strokec13 // Trigger download locally using the exact same PDF\cf5 \cb1 \strokec5 \
+\cb3             \strokec14 triggerLocalDownload\strokec5 (\strokec14 pdfBase64\strokec5 , \strokec14 cleanFileName\strokec5 );\cb1 \
+\cb3           \})\cb1 \
+\cb3           .\strokec14 withFailureHandler\strokec5 (\cf7 \strokec7 function\cf5 \strokec5 (\strokec14 err\strokec5 ) \{\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 className\strokec5  = \cf9 \strokec9 'status-text error'\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 statusText\strokec5 .\strokec14 innerHTML\strokec5  = \cf9 \strokec9 '\uc0\u10007  Error saving to Drive: '\cf5 \strokec5  + \strokec14 err\strokec5 .\strokec14 message\strokec5 ;\cb1 \
+\cb3             \strokec14 btn\strokec5 .\strokec14 disabled\strokec5  = \cf7 \strokec7 false\cf5 \strokec5 ;\cb1 \
+\cb3             \strokec14 btn\strokec5 .\strokec14 style\strokec5 .\strokec14 opacity\strokec5  = \cf9 \strokec9 '1'\cf5 \strokec5 ;\cb1 \
+\cb3             \cb1 \
+\cb3             \cf13 \strokec13 // Still trigger download locally even if upload fails\cf5 \cb1 \strokec5 \
+\cb3             \strokec14 triggerLocalDownload\strokec5 (\strokec14 pdfBase64\strokec5 , \strokec14 cleanFileName\strokec5 );\cb1 \
+\cb3           \})\cb1 \
+\cb3           .\strokec14 savePdfToDrive\strokec5 (\strokec14 base64\strokec5 , \strokec14 opt\strokec5 .\strokec14 filename\strokec5 , \strokec14 invoiceNum\strokec5 , \strokec14 lowestRow\strokec5 );\cb1 \
+\cb3       \}).\cf7 \strokec7 catch\cf5 \strokec5 (\cf7 \strokec7 function\cf5 \strokec5 (\strokec14 err\strokec5 ) \{\cb1 \
+\cb3         \strokec14 statusText\strokec5 .\strokec14 className\strokec5  = \cf9 \strokec9 'status-text error'\cf5 \strokec5 ;\cb1 \
+\cb3         \strokec14 statusText\strokec5 .\strokec14 innerHTML\strokec5  = \cf9 \strokec9 '\uc0\u10007  Error generating PDF: '\cf5 \strokec5  + \strokec14 err\strokec5 .\strokec14 toString\strokec5 ();\cb1 \
+\cb3         \strokec14 btn\strokec5 .\strokec14 disabled\strokec5  = \cf7 \strokec7 false\cf5 \strokec5 ;\cb1 \
+\cb3         \strokec14 btn\strokec5 .\strokec14 style\strokec5 .\strokec14 opacity\strokec5  = \cf9 \strokec9 '1'\cf5 \strokec5 ;\cb1 \
+\cb3       \});\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     \cf7 \strokec7 function\cf5 \strokec5  \strokec14 triggerLocalDownload\strokec5 (\strokec14 dataUri\strokec5 , \strokec14 filename\strokec5 ) \{\cb1 \
+\cb3       \cf7 \strokec7 try\cf5 \strokec5  \{\cb1 \
+\cb3         \cf7 \strokec7 var\cf5 \strokec5  \strokec14 link\strokec5  = \strokec14 document\strokec5 .\strokec14 createElement\strokec5 (\cf9 \strokec9 'a'\cf5 \strokec5 );\cb1 \
+\cb3         \strokec14 link\strokec5 .\strokec14 href\strokec5  = \strokec14 dataUri\strokec5 ;\cb1 \
+\cb3         \strokec14 link\strokec5 .\strokec14 download\strokec5  = \strokec14 filename\strokec5 ;\cb1 \
+\cb3         \strokec14 document\strokec5 .\strokec14 body\strokec5 .\strokec14 appendChild\strokec5 (\strokec14 link\strokec5 );\cb1 \
+\cb3         \strokec14 link\strokec5 .\strokec14 click\strokec5 ();\cb1 \
+\cb3         \strokec14 document\strokec5 .\strokec14 body\strokec5 .\strokec14 removeChild\strokec5 (\strokec14 link\strokec5 );\cb1 \
+\cb3       \} \cf7 \strokec7 catch\cf5 \strokec5  (\strokec14 e\strokec5 ) \{\cb1 \
+\cb3         \strokec14 console\strokec5 .\strokec14 error\strokec5 (\cf9 \strokec9 "Local download fallback failed:"\cf5 \strokec5 , \strokec14 e\strokec5 );\cb1 \
+\cb3       \}\cb1 \
+\cb3     \}\cb1 \
+\cb3   \cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 script\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 body\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+\cf6 \cb3 \strokec6 </\cf7 \cb3 \strokec7 html\cf6 \cb3 \strokec6 >\cf5 \cb1 \strokec5 \
+}

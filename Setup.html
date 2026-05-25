@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      color: #333;
+      background: #f9f9f9;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    input[type="month"], select, input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-group">
+    <label for="invoiceNumber">Invoice Number</label>
+    <input type="text" id="invoiceNumber" placeholder="e.g. 0001" required>
+  </div>
+
+  <div class="form-group">
+    <label for="forText">For (Services / Project)</label>
+    <input type="text" id="forText" placeholder="e.g. Website Development" required>
+  </div>
+
+  <p style="font-size: 13px; color: #666; margin-bottom: 20px;">
+    <strong>Note:</strong> The invoice will be generated based on the rows you have currently highlighted in the spreadsheet.
+  </p>
+
+  <div class="form-group">
+    <label for="clientSelect">Select Client</label>
+    <select id="clientSelect">
+      <option value="" disabled selected>Loading clients...</option>
+    </select>
+  </div>
+
+  <button class="btn" onclick="generateInvoice()">Generate Invoice</button>
+
+  <script>
+    var clientsData = {};
+
+    // Load clients on start
+    google.script.run.withSuccessHandler(function(clients) {
+      clientsData = clients;
+      var select = document.getElementById('clientSelect');
+      select.innerHTML = '<option value="" disabled selected>Choose a client...</option>';
+      
+      for (var nick in clients) {
+        var opt = document.createElement('option');
+        opt.value = nick;
+        opt.textContent = nick;
+        select.appendChild(opt);
+      }
+    }).getSavedClients();
+
+
+
+    function generateInvoice() {
+      var invoiceNum = document.getElementById('invoiceNumber').value.trim();
+      var forText = document.getElementById('forText').value.trim();
+      
+      if (!invoiceNum || !forText) {
+        alert("Please fill in Invoice Number and For.");
+        return;
+      }
+      
+      var select = document.getElementById('clientSelect');
+      var clientVal = select.value;
+      if (!clientVal) {
+        alert("Please select a client.");
+        return;
+      }
+      
+      var clientDetails = clientsData[clientVal];
+      
+      document.querySelector('.btn').textContent = "Generating...";
+      document.querySelector('.btn').disabled = true;
+      
+      google.script.run.generateInvoiceHTML(clientDetails, invoiceNum, forText);
+    }
+  </script>
+</body>
+</html>

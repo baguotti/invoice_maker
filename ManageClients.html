@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
+      color: #333;
+      background: #f9f9f9;
+      margin: 0;
+    }
+    .client-list {
+      margin-bottom: 20px;
+    }
+    .client-item {
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .client-info h4 {
+      margin: 0 0 5px 0;
+    }
+    .client-info p {
+      margin: 0;
+      font-size: 13px;
+      color: #666;
+      white-space: pre-wrap;
+    }
+    .client-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .client-actions button {
+      margin-left: 5px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .btn-edit { background: #eee; color: #333; }
+    .btn-delete { background: #ffecec; color: #d00; }
+    
+    hr { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+    
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+    input[type="text"], textarea {
+      width: 100%; padding: 10px; border: 1px solid #ccc;
+      border-radius: 6px; box-sizing: border-box; font-family: inherit; font-size: 14px;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .btn {
+      width: 100%; padding: 12px; background: #111; color: #fff;
+      border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+      font-size: 14px; transition: background 0.2s;
+    }
+    .btn:hover { background: #333; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div id="loading">Loading clients...</div>
+  <div id="client-container" class="client-list hidden"></div>
+
+  <hr>
+
+  <h3 id="form-title">Add New Client</h3>
+  <input type="hidden" id="originalNickname">
+  <div class="form-group">
+    <label for="nickname">Client Nickname (e.g. Acme Corp)</label>
+    <input type="text" id="nickname" placeholder="Acme Corp">
+  </div>
+  <div class="form-group">
+    <label for="details">Client Details (Name, Address, etc.)</label>
+    <textarea id="details" placeholder="Acme Corporation&#10;123 Business Rd.&#10;City, State"></textarea>
+  </div>
+  
+  <div style="display:flex; gap:10px;">
+    <button class="btn" id="save-btn" onclick="saveClient()">Save Client</button>
+    <button class="btn" id="cancel-btn" style="background:#eee; color:#333; display:none;" onclick="cancelEdit()">Cancel</button>
+  </div>
+
+  <script>
+    var currentClients = {};
+
+    function loadClients() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('client-container').style.display = 'none';
+      google.script.run.withSuccessHandler(renderClients).getSavedClients();
+    }
+
+    function renderClients(clients) {
+      currentClients = clients;
+      var container = document.getElementById('client-container');
+      container.innerHTML = '';
+      
+      var count = 0;
+      for (var nick in clients) {
+        count++;
+        var item = document.createElement('div');
+        item.className = 'client-item';
+        
+        var info = document.createElement('div');
+        info.className = 'client-info';
+        info.innerHTML = '<h4>' + escapeHtml(nick) + '</h4><p>' + escapeHtml(clients[nick]) + '</p>';
+        
+        var actions = document.createElement('div');
+        actions.className = 'client-actions';
+        
+        var editBtn = document.createElement('button');
+        editBtn.className = 'btn-edit';
+        editBtn.textContent = 'Edit';
+        editBtn.onclick = (function(n, d) { return function() { editClient(n, d); }; })(nick, clients[nick]);
+        
+        var delBtn = document.createElement('button');
+        delBtn.className = 'btn-delete';
+        delBtn.textContent = 'Delete';
+        delBtn.onclick = (function(n) { return function() { deleteClientAction(n); }; })(nick);
+        
+        actions.appendChild(editBtn);
+        actions.appendChild(delBtn);
+        
+        item.appendChild(info);
+        item.appendChild(actions);
+        container.appendChild(item);
+      }
+      
+      if (count === 0) {
+        container.innerHTML = '<p style="color:#666; font-size:14px;">No clients saved yet.</p>';
+      }
+      
+      document.getElementById('loading').style.display = 'none';
+      container.style.display = 'block';
+    }
+
+    function escapeHtml(unsafe) {
+      return (unsafe||"").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function editClient(nick, details) {
+      document.getElementById('form-title').textContent = 'Edit Client';
+      document.getElementById('originalNickname').value = nick;
+      document.getElementById('nickname').value = nick;
+      document.getElementById('details').value = details;
+      document.getElementById('cancel-btn').style.display = 'block';
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function cancelEdit() {
+      document.getElementById('form-title').textContent = 'Add New Client';
+      document.getElementById('originalNickname').value = '';
+      document.getElementById('nickname').value = '';
+      document.getElementById('details').value = '';
+      document.getElementById('cancel-btn').style.display = 'none';
+    }
+
+    function saveClient() {
+      var origNick = document.getElementById('originalNickname').value;
+      var nick = document.getElementById('nickname').value.trim();
+      var details = document.getElementById('details').value.trim();
+      
+      if (!nick || !details) {
+        alert("Please fill in both nickname and details.");
+        return;
+      }
+      
+      document.getElementById('save-btn').textContent = 'Saving...';
+      document.getElementById('save-btn').disabled = true;
+      
+      google.script.run.withSuccessHandler(function(updatedClients) {
+        cancelEdit();
+        document.getElementById('save-btn').textContent = 'Save Client';
+        document.getElementById('save-btn').disabled = false;
+        renderClients(updatedClients);
+      }).renameClient(origNick, nick, details);
+    }
+
+    function deleteClientAction(nick) {
+      if (confirm('Are you sure you want to delete "' + nick + '"?')) {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('client-container').style.display = 'none';
+        google.script.run.withSuccessHandler(renderClients).deleteClient(nick);
+      }
+    }
+
+    // Init
+    loadClients();
+  </script>
+</body>
+</html>
