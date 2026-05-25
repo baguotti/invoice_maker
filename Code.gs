@@ -87,10 +87,14 @@ function formatCurrency(num) {
 
 function generateFromSelection() {
   var sheet = SpreadsheetApp.getActiveSheet();
-  var range = sheet.getActiveRange();
-  var startRow = range.getRow();
-  var numRows = range.getNumRows();
-  var data = sheet.getRange(startRow, 1, numRows, 4).getValues();
+  var rangeList = sheet.getActiveRangeList();
+  var ranges = rangeList ? rangeList.getRanges() : [sheet.getActiveRange()];
+  
+  var data = [];
+  for (var k = 0; k < ranges.length; k++) {
+    var r = ranges[k];
+    data = data.concat(sheet.getRange(r.getRow(), 1, r.getNumRows(), 4).getValues());
+  }
   
   var projectStr = "";
   // Find the first valid project string in the selection
@@ -139,10 +143,20 @@ function generateFromSelection() {
 function generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname) {
   var sheet = SpreadsheetApp.getActiveSheet();
   
-  var range = sheet.getActiveRange();
-  var startRow = range.getRow();
-  var numRows = range.getNumRows();
-  var data = sheet.getRange(startRow, 1, numRows, 4).getValues();
+  var rangeList = sheet.getActiveRangeList();
+  var ranges = rangeList ? rangeList.getRanges() : [sheet.getActiveRange()];
+  var data = [];
+  var lowestRow = 0;
+  
+  for (var k = 0; k < ranges.length; k++) {
+    var r = ranges[k];
+    var rStart = r.getRow();
+    var rNum = r.getNumRows();
+    data = data.concat(sheet.getRange(rStart, 1, rNum, 4).getValues());
+    
+    var rEnd = rStart + rNum - 1;
+    if (rEnd > lowestRow) lowestRow = rEnd;
+  }
   
   var weeksMap = {};
   var totalDays = 0;
@@ -152,7 +166,10 @@ function generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname)
   var minDate = null;
   var maxDate = null;
   
-  var startIndex = (startRow === 1) ? 1 : 0;
+  var startIndex = 0;
+  if (data.length > 0 && String(data[0][0]).trim().toUpperCase() === "DATE") {
+    startIndex = 1;
+  }
   
   for (var i = startIndex; i < data.length; i++) {
     var row = data[i];
@@ -280,7 +297,7 @@ function generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname)
   template.clientDetails = clientDetails;
   template.invoiceNum = invoiceNum;
   template.forText = forText;
-  template.lowestRow = startRow + numRows - 1;
+  template.lowestRow = lowestRow;
   template.clientNickname = clientNickname;
   
   var isUs = false;
@@ -306,13 +323,19 @@ function generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname)
 
 function generateQuoteFromSelection() {
   var sheet = SpreadsheetApp.getActiveSheet();
-  var range = sheet.getActiveRange();
+  var rangeList = sheet.getActiveRangeList();
+  var ranges = rangeList ? rangeList.getRanges() : [sheet.getActiveRange()];
   
-  // Get data from columns A to D for the highlighted rows
-  var startRow = range.getRow();
-  var numRows = range.getNumRows();
-  var data = sheet.getRange(startRow, 1, numRows, 6).getValues();
-  var displayData = sheet.getRange(startRow, 1, numRows, 6).getDisplayValues();
+  var data = [];
+  var displayData = [];
+  
+  for (var k = 0; k < ranges.length; k++) {
+    var r = ranges[k];
+    var startRow = r.getRow();
+    var numRows = r.getNumRows();
+    data = data.concat(sheet.getRange(startRow, 1, numRows, 6).getValues());
+    displayData = displayData.concat(sheet.getRange(startRow, 1, numRows, 6).getDisplayValues());
+  }
   
   // Detect currency from display values
   var currencySymbol = "£"; // Default
