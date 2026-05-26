@@ -3,7 +3,9 @@
 
 <head>
   <base target="_top">
-  <title><?= documentTitle ?></title>
+  <title>
+    <?= documentTitle ?>
+  </title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
@@ -18,7 +20,8 @@
       margin: 0;
       padding: 40px 0;
       color: var(--text);
-      background-color: #E5E3DB; /* A slightly darker shade to contrast the sheet */
+      background-color: #E5E3DB;
+      /* A slightly darker shade to contrast the sheet */
       line-height: 1.5;
       font-size: 13px;
     }
@@ -27,7 +30,8 @@
       background-color: var(--bg);
       box-sizing: border-box;
       width: 800px;
-      min-height: 1110px; /* Adjusted to prevent blank second page */
+      min-height: 1110px;
+      /* Adjusted to prevent blank second page */
       padding: 60px;
       margin: 0 auto;
       display: flex;
@@ -80,7 +84,7 @@
       font-size: 13px;
     }
 
-    .billed-grid > div:last-child {
+    .billed-grid>div:last-child {
       text-align: right;
     }
 
@@ -154,7 +158,7 @@
       padding-top: 60px;
     }
 
-    .footer-grid > div:last-child {
+    .footer-grid>div:last-child {
       text-align: right;
     }
 
@@ -171,22 +175,63 @@
       margin: 2px 0;
     }
 
+    .button-container {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      margin: 30px auto;
+      flex-wrap: wrap;
+    }
+
     .print-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      width: 200px;
-      margin: 60px auto 0;
-      padding: 12px 24px;
-      background-color: var(--text);
-      color: var(--bg);
+      gap: 10px;
+      width: 250px;
+      height: 68px;
+      padding: 0 16px;
       text-align: center;
-      border: none;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+      box-sizing: border-box;
+    }
+
+    .print-btn.btn-primary {
+      background-color: #ffffff;
+      color: #111111;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .print-btn.btn-primary:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-1px);
+    }
+
+    .print-btn.btn-outline {
+      background-color: transparent;
+      color: #aaaaaa;
+      border: 1px solid #666666;
+    }
+
+    .print-btn.btn-outline:hover {
+      color: #ffffff;
+      border-color: #999999;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .print-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
     }
 
     /* Status styles */
@@ -200,19 +245,19 @@
       font-weight: 500;
       text-align: center;
     }
-    
+
     .status-text {
       margin-top: 8px;
       color: #666;
       transition: color 0.3s ease;
       line-height: 1.6;
     }
-    
+
     .status-text.success {
       color: #2e7d32;
       font-weight: 600;
     }
-    
+
     .status-text.error {
       color: #c62828;
       font-weight: 600;
@@ -238,7 +283,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @page {
@@ -276,133 +323,138 @@
 
   <div class="pdf-page-wrapper">
     <div class="invoice-container">
-    <header>
-      <div class="header-left">
-        <h1>Invoice</h1>
-      </div>
-      <div class="header-right">
-        <p>
-          <?= currentDate ?>
-        </p>
-        <p class="bold">Invoice No.
-          <?= invoiceNum ?>
-        </p>
-      </div>
-    </header>
+      <header>
+        <div class="header-left">
+          <h1>Invoice</h1>
+        </div>
+        <div class="header-right">
+          <p>
+            <?= currentDate ?>
+          </p>
+          <p class="bold">Invoice No.
+            <?= invoiceNum ?>
+          </p>
+        </div>
+      </header>
 
 
 
-    <div class="billed-grid">
-      <div>
-        <h3>Billed to:</h3>
-        <p>
-          <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
-        </p>
+      <div class="billed-grid">
+        <div>
+          <h3>Billed to:</h3>
+          <p>
+            <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
+          </p>
+        </div>
+        <div>
+          <h3>For:</h3>
+          <p>
+            <?= forText ?>
+          </p>
+          <h3 style="margin-top: 15px;">Billing Period:</h3>
+          <p>
+            <?= intervalStr ?>
+          </p>
+        </div>
       </div>
-      <div>
-        <h3>For:</h3>
-        <p>
-          <?= forText ?>
-        </p>
-        <h3 style="margin-top: 15px;">Billing Period:</h3>
-        <p>
-          <?= intervalStr ?>
-        </p>
-      </div>
-    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Dates</th>
-          <th class="center">Rate</th>
-          <th class="center">Days</th>
-          <th class="num">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <? for (var i = 0; i < groupedData.length; i++) { ?>
-        <tr>
-          <td>
-            <?= groupedData[i].weekLabel ?>
-          </td>
-          <td>
-            <?= groupedData[i].datesWorked ?>
-          </td>
-          <td class="center">
-            <?= groupedData[i].rateDisplay ?>
-          </td>
-          <td class="center">
-            <?= groupedData[i].days ?>
-          </td>
-          <td class="num">
-            <?= currency ?>
-            <?= groupedData[i].totalDisplay ?>
-          </td>
-        </tr>
-        <? } ?>
-      </tbody>
-      <tfoot>
-        <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
-          <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
-          <td class="center" style="padding-top: 24px;">
-            <?= totalDays ?>
-          </td>
-          <td class="num" style="padding-top: 24px;">
-            <?= currency ?>
-            <?= totalFeeDisplay ?>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Dates</th>
+            <th class="center">Rate</th>
+            <th class="center">Days</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <? for (var i = 0; i < groupedData.length; i++) { ?>
+          <tr>
+            <td>
+              <?= groupedData[i].weekLabel ?>
+            </td>
+            <td>
+              <?= groupedData[i].datesWorked ?>
+            </td>
+            <td class="center">
+              <?= groupedData[i].rateDisplay ?>
+            </td>
+            <td class="center">
+              <?= groupedData[i].days ?>
+            </td>
+            <td class="num">
+              <?= currency ?>
+              <?= groupedData[i].totalDisplay ?>
+            </td>
+          </tr>
+          <? } ?>
+        </tbody>
+        <tfoot>
+          <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
+            <td class="center" style="padding-top: 24px;">
+              <?= totalDays ?>
+            </td>
+            <td class="num" style="padding-top: 24px;">
+              <?= currency ?>
+              <?= totalFeeDisplay ?>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
 
-    <div class="footer-grid">
-      <div class="footer-section">
-        <h3>Riccardo Fusetti</h3>
-        <p>Flat 25, Bellmaker Court</p>
-        <p>136 St. Pauls Way, London E3 4AD</p>
-        <p>079 18 993 398</p>
-        <p>fusetti.riccardo@gmail.com</p>
-        <p>riccardofusetti.com</p>
-      </div>
-      <div class="footer-section">
-        <h3>Payment Information</h3>
-        <? if (isUs) { ?>
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3>Riccardo Fusetti</h3>
+          <p>Flat 25, Bellmaker Court</p>
+          <p>136 St. Pauls Way, London E3 4AD</p>
+          <p>079 18 993 398</p>
+          <p>fusetti.riccardo@gmail.com</p>
+          <p>riccardofusetti.com</p>
+        </div>
+        <div class="footer-section">
+          <h3>Payment Information</h3>
+          <? if (isUs) { ?>
           <p>Account type: Checking</p>
           <p>Routing number (for wire and ACH): 026073150</p>
           <p>Account number: 8312949203</p>
-          <p>Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United States</p>
-        <? } else { ?>
+          <p>Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United
+            States</p>
+          <? } else { ?>
           <p>Sort Code: 04-00-06</p>
           <p>Account Number: 91557044</p>
           <p>IBAN: GB96 MONZ 0400 0691 5570 44</p>
-        <? } ?>
+          <? } ?>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-  <div class="button-container no-print" style="display: flex; gap: 10px; justify-content: center; margin: 20px 0;">
-    <button class="print-btn" onclick="savePdf('local')" style="display: flex;">
-      <svg class="print-icon" style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+  <div class="button-container no-print">
+    <button class="print-btn btn-primary" onclick="savePdf('local')">
+      <svg class="print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
       </svg>
-      Save PDF Only
+      SAVE PDF ONLY
     </button>
-    <button class="print-btn" onclick="savePdf('drive')" style="display: flex;">
-      <svg class="print-icon" style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+    <button class="print-btn btn-primary" onclick="savePdf('drive')">
+      <svg class="print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
       </svg>
-      Save PDF & Upload to Drive
+      <span>SAVE PDF & UPLOAD<br>TO DRIVE</span>
     </button>
     <? if (clientNickname && String(clientNickname).trim().toUpperCase() === 'WILD ISLAND') { ?>
-      <button class="print-btn" onclick="savePdf('email')" style="display: flex; background-color: #007bff; color: white;">
-        <svg class="print-icon" style="width:16px;height:16px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-        </svg>
-        Save, Upload & Email
-      </button>
+    <button class="print-btn btn-primary" onclick="savePdf('email')">
+      <svg class="print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+        </path>
+      </svg>
+      <span>SAVE, UPLOAD &<br>EMAIL</span>
+    </button>
     <? } ?>
   </div>
 
@@ -414,53 +466,53 @@
     function savePdf(mode) {
       // Prevent scroll-offset rendering bugs by scrolling to top
       window.scrollTo(0, 0);
-      
+
       var title = <?= JSON.stringify(documentTitle) ?>;
       var invoiceNum = <?= JSON.stringify(invoiceNum) ?>;
       var lowestRow = <?= lowestRow ?>;
       var forText = <?= JSON.stringify(forText) ?>;
-      
+
       // Replace non-alphanumeric characters with underscores and collapse multiples
       var cleanFileName = title.replace(/[^a-zA-Z0-9_]/g, '_').replace(/_+/g, '_') + '.pdf';
-      
+
       var buttons = document.querySelectorAll('.print-btn');
       var statusContainer = document.getElementById('status-container');
       var statusText = document.getElementById('status-text');
-      
+
       // Update UI to show generating
       buttons.forEach(btn => {
         btn.disabled = true;
         btn.style.opacity = '0.5';
       });
-      
+
       statusContainer.style.display = 'flex';
       statusText.className = 'status-text';
       statusText.innerHTML = '<div class="spinner"></div><div style="margin-top: 8px;">Generating PDF...</div>';
-      
+
       var element = document.querySelector('.pdf-page-wrapper');
-      
+
       // html2pdf options
       var opt = {
-        margin:       0, // Full-bleed to preserve background color and formatting
-        filename:     cleanFileName,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-          scale: 2, 
-          useCORS: true, 
+        margin: 0, // Full-bleed to preserve background color and formatting
+        filename: cleanFileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
           backgroundColor: '#F4F2EB',
           letterRendering: true,
           scrollX: 0,
           scrollY: 0,
-          ignoreElements: function(element) {
+          ignoreElements: function (element) {
             return element.classList.contains('no-print');
           }
         },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: 'avoid-all' }
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
       };
-      
+
       // Generate PDF exactly once
-      html2pdf().from(element).set(opt).toPdf().outputPdf('datauristring').then(function(pdfBase64) {
+      html2pdf().from(element).set(opt).toPdf().outputPdf('datauristring').then(function (pdfBase64) {
         if (mode === 'local') {
           // Local save only
           statusText.className = 'status-text success';
@@ -476,14 +528,14 @@
         var isEmailMode = (mode === 'email');
         var progressText = isEmailMode ? 'Uploading to Drive & Sending Email...' : 'Uploading to Google Drive...';
         statusText.innerHTML = '<div class="spinner"></div><div style="margin-top: 8px;">' + progressText + '</div>';
-        
+
         var base64 = pdfBase64.split(',')[1];
-        
+
         google.script.run
-          .withSuccessHandler(function(driveUrl) {
+          .withSuccessHandler(function (driveUrl) {
             statusText.className = 'status-text success';
             statusText.innerHTML = isEmailMode ? '✓ Successfully uploaded and emailed!' : '✓ Successfully saved to Google Drive!';
-            
+
             // Add a link to open the file in Drive
             var link = document.createElement('a');
             link.href = driveUrl;
@@ -492,28 +544,28 @@
             link.innerText = 'Open PDF in Google Drive';
             statusText.appendChild(document.createElement('br'));
             statusText.appendChild(link);
-            
+
             buttons.forEach(btn => {
               btn.disabled = false;
               btn.style.opacity = '1';
             });
-            
+
             // Trigger download locally using the exact same PDF
             triggerLocalDownload(pdfBase64, cleanFileName);
           })
-          .withFailureHandler(function(err) {
+          .withFailureHandler(function (err) {
             statusText.className = 'status-text error';
             statusText.innerHTML = '✗ Error saving to Drive: ' + err.message;
             buttons.forEach(btn => {
               btn.disabled = false;
               btn.style.opacity = '1';
             });
-            
+
             // Still trigger download locally even if upload fails
             triggerLocalDownload(pdfBase64, cleanFileName);
           })
           .savePdfToDrive(base64, opt.filename, invoiceNum, lowestRow, isEmailMode, forText);
-      }).catch(function(err) {
+      }).catch(function (err) {
         statusText.className = 'status-text error';
         statusText.innerHTML = '✗ Error generating PDF: ' + err.toString();
         buttons.forEach(btn => {
@@ -537,4 +589,5 @@
     }
   </script>
 </body>
+
 </html>
