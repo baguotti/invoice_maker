@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Blank Invoice Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --bg: #F4F2EB;
+      --text: #111111;
+      --border: #111111;
+      --accent: #2e7d32;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 40px 0;
+      color: var(--text);
+      background-color: #E5E3DB;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .pdf-page-wrapper {
+      background-color: var(--bg);
+      box-sizing: border-box;
+      width: 800px;
+      min-height: 1110px;
+      padding: 60px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .invoice-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .header-left h1 {
+      margin: 0;
+      font-size: 110px;
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 0.9;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .header-right p {
+      margin: 2px 0;
+    }
+
+    .header-right .bold {
+      font-weight: 700;
+    }
+
+    .billed-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 0 0 60px 0;
+      font-size: 13px;
+    }
+
+    .billed-grid>div:last-child {
+      text-align: right;
+    }
+
+    .billed-grid h3 {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      margin: 0 0 12px 0;
+    }
+
+    .client-select-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .client-select-container h3 {
+      margin: 0 !important;
+    }
+
+    .billed-grid p {
+      margin: 2px 0;
+    }
+
+    /* Editable Fields Styling */
+    [contenteditable="true"] {
+      border: 1px dashed transparent;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    [contenteditable="true"]:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+      border-color: #ccc;
+    }
+
+    [contenteditable="true"]:focus {
+      background-color: #ffffff;
+      border-color: var(--text);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .billed-grid p[contenteditable="true"] {
+      display: block;
+      min-width: 150px;
+      min-height: 1.5em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      font-weight: 600;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 15px 10px;
+      vertical-align: middle;
+      position: relative;
+    }
+
+    th:first-child,
+    td:first-child {
+      padding-left: 0;
+    }
+
+    th:last-child,
+    td:last-child {
+      padding-right: 0;
+    }
+
+    th.center,
+    td.center {
+      text-align: center;
+    }
+
+    th.num,
+    td.num {
+      text-align: right;
+    }
+
+    /* Row actions styling */
+    .row-actions {
+      position: absolute;
+      right: -45px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    tr:hover .row-actions {
+      opacity: 1;
+    }
+
+    .row-btn {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      color: #333;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .row-btn:hover {
+      background: #f0f0f0;
+      border-color: #666;
+    }
+
+    .row-btn.delete-btn {
+      color: #c62828;
+    }
+
+    .row-btn.delete-btn:hover {
+      background: #ffebee;
+      border-color: #c62828;
+    }
+
+    .add-row-container {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .add-row-btn {
+      background: transparent;
+      border: 1px dashed #666;
+      color: #666;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .add-row-btn:hover {
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      font-size: 11px;
+      margin-top: auto;
+      padding-top: 60px;
+    }
+
+    .footer-grid>div:last-child {
+      text-align: right;
+    }
+
+    .footer-section h3 {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #666;
+      margin: 0 0 12px 0;
+    }
+
+    .footer-section p {
+      margin: 2px 0;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      margin: 30px auto;
+      flex-wrap: wrap;
+    }
+
+    .print-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 220px;
+      padding: 16px 28px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+    }
+
+    .print-btn.btn-primary {
+      background-color: #ffffff;
+      color: #111111;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .print-btn.btn-primary:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-1px);
+    }
+
+    .print-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .currency-selector {
+      background: transparent;
+      border: 1px solid #ccc;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .currency-selector:hover {
+      border-color: var(--text);
+    }
+
+    /* Status styles */
+    .status-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .status-text {
+      margin-top: 8px;
+      color: #666;
+      transition: color 0.3s ease;
+      line-height: 1.6;
+    }
+
+    .status-text.success {
+      color: #2e7d32;
+      font-weight: 600;
+    }
+
+    .status-text.error {
+      color: #c62828;
+      font-weight: 600;
+    }
+
+    .status-link {
+      color: #111111;
+      text-decoration: underline;
+      margin-top: 4px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    /* CSS Spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(17, 17, 17, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--text);
+      animation: spin 0.8s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        background-color: var(--bg);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 0;
+      }
+
+      .pdf-page-wrapper {
+        width: 100%;
+        min-height: 100%;
+        padding: 60px;
+        box-shadow: none;
+      }
+
+      .invoice-container {
+        min-height: calc(297mm - 120px);
+      }
+
+      .print-btn,
+      .add-row-container,
+      .row-actions,
+      .no-print {
+        display: none !important;
+      }
+
+      [contenteditable="true"] {
+        border: none !important;
+        padding: 0 !important;
+        background-color: transparent !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="pdf-page-wrapper">
+    <div class="invoice-container">
+      <header>
+        <div class="header-left">
+          <h1 contenteditable="true">Invoice</h1>
+        </div>
+        <div class="header-right">
+          <p contenteditable="true" id="current-date">June 1, 2026</p>
+          <p class="bold">Invoice No. <span contenteditable="true">0001</span></p>
+        </div>
+      </header>
+
+      <div class="billed-grid">
+        <div>
+          <div class="client-select-container">
+            <h3>Billed to:</h3>
+            <select id="client-select" class="currency-selector no-print" style="display: none;" onchange="selectClient(this.value)">
+              <option value="">-- Choose Saved Client --</option>
+            </select>
+          </div>
+          <p contenteditable="true" style="white-space: pre-line;" id="billed-to-address">Client Name
+Company Address
+City, Postcode
+Country</p>
+        </div>
+        <div>
+          <h3>For:</h3>
+          <p contenteditable="true">Project Description / Service</p>
+          <h3 style="margin-top: 15px;">Billing Period:</h3>
+          <p contenteditable="true">June 1, 2026 - June 15, 2026</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Dates</th>
+            <th class="center" style="width: 100px;">Rate</th>
+            <th class="center" style="width: 80px;">Days</th>
+            <th class="num" style="width: 120px;">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-items">
+          <!-- Starts fully blank for manual entry -->
+        </tbody>
+        <tfoot>
+          <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
+            <td class="center" id="total-days" style="padding-top: 24px;">0</td>
+            <td class="num" style="padding-top: 24px;">
+              <span class="currency-label">£</span><span id="total-fee">0.00</span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="add-row-container no-print">
+        <button class="add-row-btn" onclick="addRow()">+ Add Line Item</button>
+      </div>
+
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h3 contenteditable="true">Riccardo Fusetti</h3>
+          <p contenteditable="true">Flat 25, Bellmaker Court</p>
+          <p contenteditable="true">136 St. Pauls Way, London E3 4AD</p>
+          <p contenteditable="true">079 18 993 398</p>
+          <p contenteditable="true">fusetti.riccardo@gmail.com</p>
+          <p contenteditable="true">riccardofusetti.com</p>
+        </div>
+        <div class="footer-section">
+          <h3>Payment Information</h3>
+          <div id="payment-uk">
+            <p contenteditable="true">Sort Code: 04-00-06</p>
+            <p contenteditable="true">Account Number: 91557044</p>
+            <p contenteditable="true">IBAN: GB96 MONZ 0400 0691 5570 44</p>
+          </div>
+          <div id="payment-us" style="display: none;">
+            <p contenteditable="true">Account type: Checking</p>
+            <p contenteditable="true">Routing number (for wire and ACH): 026073150</p>
+            <p contenteditable="true">Account number: 8312949203</p>
+            <p contenteditable="true">Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United States</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="button-container no-print">
+    <select id="payment-selector" class="currency-selector" onchange="changePaymentRegion(this.value)">
+      <option value="uk">UK Details (GBP)</option>
+      <option value="us">US Details (USD)</option>
+    </select>
+    <select class="currency-selector" onchange="changeCurrency(this.value)">
+      <option value="£">GBP (£)</option>
+      <option value="$">USD ($)</option>
+      <option value="€">EUR (€)</option>
+    </select>
+    <button class="print-btn btn-primary" onclick="savePdf('local')">
+      <svg class="print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+      </svg>
+      SAVE PDF ONLY
+    </button>
+    <button class="print-btn btn-primary" onclick="savePdf('drive')">
+      <svg class="print-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+      </svg>
+      SAVE & UPLOAD TO DRIVE
+    </button>
+  </div>
+
+  <div id="status-container" class="status-container no-print">
+    <div id="status-text" class="status-text"></div>
+  </div>
+
+  <script>
+    // Automatically set today's date
+    const today = new Date();
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('current-date').innerText = today.toLocaleDateString('en-GB', options);
+
+    let currencySymbol = "£";
+
+    function changePaymentRegion(region) {
+      if (region === 'uk') {
+        document.getElementById('payment-uk').style.display = 'block';
+        document.getElementById('payment-us').style.display = 'none';
+        changeCurrency('£');
+        document.querySelectorAll('.currency-selector')[1].value = '£';
+      } else {
+        document.getElementById('payment-uk').style.display = 'none';
+        document.getElementById('payment-us').style.display = 'block';
+        changeCurrency('$');
+        document.querySelectorAll('.currency-selector')[1].value = '$';
+      }
+    }
+
+    function changeCurrency(val) {
+      currencySymbol = val;
+      document.querySelectorAll('.currency-label').forEach(el => {
+        el.innerText = val;
+      });
+    }
+
+    function addRow() {
+      const tbody = document.getElementById('invoice-items');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><span contenteditable="true">New Item</span></td>
+        <td><span contenteditable="true">-</span></td>
+        <td class="center"><span class="currency-label">${currencySymbol}</span><span class="rate-val" contenteditable="true">0.00</span></td>
+        <td class="center"><span class="days-val" contenteditable="true">0</span></td>
+        <td class="num"><span class="currency-label">${currencySymbol}</span><span class="amount-val">0.00</span></td>
+        <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+          <div class="row-actions">
+            <button class="row-btn delete-btn" onclick="deleteRow(this)">−</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+      setupListeners();
+      calculateTotals();
+    }
+
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      row.remove();
+      calculateTotals();
+    }
+
+    function formatNumber(num) {
+      return Number(num).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculateTotals() {
+      let totalDays = 0;
+      let totalFee = 0;
+      const rows = document.querySelectorAll('#invoice-items tr');
+
+      rows.forEach(row => {
+        const rateEl = row.querySelector('.rate-val');
+        const daysEl = row.querySelector('.days-val');
+        const amountEl = row.querySelector('.amount-val');
+
+        if (!rateEl || !daysEl || !amountEl) return;
+
+        // Parse rate
+        const rateText = rateEl.innerText.replace(/[^0-9.]/g, '');
+        const rate = parseFloat(rateText) || 0;
+
+        // Parse days
+        const daysText = daysEl.innerText.replace(/[^0-9.]/g, '');
+        const days = parseFloat(daysText) || 0;
+
+        const amount = rate * days;
+        amountEl.innerText = formatNumber(amount);
+
+        totalDays += days;
+        totalFee += amount;
+      });
+
+      document.getElementById('total-days').innerText = totalDays;
+      document.getElementById('total-fee').innerText = formatNumber(totalFee);
+    }
+
+    function setupListeners() {
+      const editableInputs = document.querySelectorAll('.rate-val, .days-val');
+      editableInputs.forEach(el => {
+        // Remove existing listener to prevent duplicates
+        el.removeEventListener('input', calculateTotals);
+        el.addEventListener('input', calculateTotals);
+      });
+    }
+
+    // Initialize listeners and calculation
+    setupListeners();
+    calculateTotals();
+
+    function savePdf(mode) {
+      if (mode === 'drive' && (typeof google === 'undefined' || !google.script || !google.script.run)) {
+        alert("Google Drive upload is only available when running this template inside the Google Spreadsheet.");
+        return;
+      }
+
+      // Prevent scroll-offset rendering bugs by scrolling to top
+      window.scrollTo(0, 0);
+
+      // Clean up filename
+      const title = document.querySelector('header h1').innerText || 'Invoice';
+      const invoiceNum = document.querySelector('.bold span').innerText || '0001';
+      const cleanFileName = (invoiceNum + '_' + title).replace(/[^a-zA-Z0-9_]/g, '_').replace(/_+/g, '_') + '.pdf';
+
+      const element = document.querySelector('.pdf-page-wrapper');
+      const buttons = document.querySelectorAll('.print-btn');
+      const statusContainer = document.getElementById('status-container');
+      const statusText = document.getElementById('status-text');
+
+      // Update UI to show generating
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+      });
+
+      statusContainer.style.display = 'flex';
+      statusText.className = 'status-text';
+      statusText.innerHTML = '<div class="spinner"></div><div style="margin-top: 8px;">Generating PDF...</div>';
+
+      // html2pdf options
+      const opt = {
+        margin: 0, 
+        filename: cleanFileName,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#F4F2EB',
+          letterRendering: true,
+          scrollX: 0,
+          scrollY: 0,
+          ignoreElements: function (el) {
+            return el.classList.contains('no-print');
+          }
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: 'avoid-all' }
+      };
+
+      // Generate PDF
+      html2pdf().from(element).set(opt).toPdf().outputPdf('datauristring').then(function (pdfBase64) {
+        if (!mode || mode === 'local') {
+          statusText.className = 'status-text success';
+          statusText.innerHTML = '✓ Successfully saved PDF locally!';
+          triggerLocalDownload(pdfBase64, cleanFileName);
+          buttons.forEach(btn => {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+          });
+          return;
+        }
+
+        statusText.innerHTML = '<div class="spinner"></div><div style="margin-top: 8px;">Uploading to Google Drive...</div>';
+        const base64 = pdfBase64.split(',')[1];
+
+        google.script.run
+          .withSuccessHandler(function (driveUrl) {
+            statusText.className = 'status-text success';
+            statusText.innerHTML = '✓ Successfully saved to Google Drive!';
+
+            // Add link to open file in Drive
+            const link = document.createElement('a');
+            link.href = driveUrl;
+            link.target = '_blank';
+            link.className = 'status-link';
+            link.innerText = 'Open PDF in Google Drive';
+            statusText.appendChild(document.createElement('br'));
+            statusText.appendChild(link);
+
+            buttons.forEach(btn => {
+              btn.disabled = false;
+              btn.style.opacity = '1';
+            });
+            triggerLocalDownload(pdfBase64, cleanFileName);
+          })
+          .withFailureHandler(function (err) {
+            statusText.className = 'status-text error';
+            statusText.innerHTML = '✗ Error saving to Drive: ' + err.message;
+            buttons.forEach(btn => {
+              btn.disabled = false;
+              btn.style.opacity = '1';
+            });
+            triggerLocalDownload(pdfBase64, cleanFileName);
+          })
+          .savePdfToDrive(base64, opt.filename, invoiceNum, null, false, title);
+      }).catch(function (err) {
+        statusText.className = 'status-text error';
+        statusText.innerHTML = '✗ Error generating PDF: ' + err.toString();
+        buttons.forEach(btn => {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+        });
+      });
+    }
+
+    function triggerLocalDownload(dataUri, filename) {
+      try {
+        const link = document.createElement('a');
+        link.href = dataUri;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (e) {
+        console.error("Local download fallback failed:", e);
+      }
+    }
+
+    // Load saved clients
+    let savedClients = {};
+
+    function loadSavedClients() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(function(clients) {
+          savedClients = clients;
+          const select = document.getElementById('client-select');
+          if (select) {
+            // Clear but keep first option
+            select.innerHTML = '<option value="">-- Choose Saved Client --</option>';
+            
+            let hasClients = false;
+            for (const name in clients) {
+              const opt = document.createElement('option');
+              opt.value = name;
+              opt.textContent = name;
+              select.appendChild(opt);
+              hasClients = true;
+            }
+            if (hasClients) {
+              select.style.display = 'inline-block';
+            }
+          }
+        }).getSavedClients();
+      }
+    }
+
+    function selectClient(name) {
+      if (!name || !savedClients[name]) return;
+      
+      const addressField = document.getElementById('billed-to-address');
+      if (addressField) {
+        addressField.innerText = savedClients[name];
+        
+        // Auto-detect US vs UK to change payment info automatically
+        const addrUpper = String(savedClients[name]).toUpperCase();
+        const hasUs = /\b(US|USA|U\.S\.A\.|UNITED STATES|UNITED STATES OF AMERICA)\b/i.test(addrUpper);
+        const hasUk = /\b(UK|U\.K\.|UNITED KINGDOM|GREAT BRITAIN|GB)\b/i.test(addrUpper);
+        
+        if (hasUs && !hasUk) {
+          const regionSelector = document.getElementById('payment-selector');
+          if (regionSelector) {
+            regionSelector.value = 'us';
+            changePaymentRegion('us');
+          }
+        } else {
+          const regionSelector = document.getElementById('payment-selector');
+          if (regionSelector) {
+            regionSelector.value = 'uk';
+            changePaymentRegion('uk');
+          }
+        }
+      }
+    }
+
+    // Initialize saved clients loading
+    loadSavedClients();
+  </script>
+</body>
+
+</html>
