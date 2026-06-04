@@ -1,0 +1,12 @@
+# Ignore everything by default
+**/*
+
+# Only allow the active project files and the clasp config
+!appsscript.json
+!Code.gs
+!Invoice.html
+!ManageClients.html
+!Quote.html
+!ProjectFeeInvoice.html
+!BlankInvoice.html
+!BlankQuote.html
