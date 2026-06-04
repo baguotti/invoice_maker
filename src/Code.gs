@@ -4,7 +4,8 @@
 
 const CONFIG = {
   DRIVE_FOLDER_ID: "1_SZuoOUNIw9UIFp-I6DczLQ1l7oJ9B67",
-  DEFAULT_EMAIL_RECIPIENTS: "accounts@wildislandfilms.com, amy@wildislandfilms.com, penina@wildislandfilms.com"
+  DEFAULT_EMAIL_RECIPIENTS: "accounts@wildislandfilms.com, amy@wildislandfilms.com, penina@wildislandfilms.com",
+  LINK_COLUMN: 7 // Column G where the PDF link will be placed
 };
 
 function onOpen() {
@@ -21,14 +22,24 @@ function onOpen() {
 
 /** Helper to get clients from properties */
 function _getClients() {
-  const props = PropertiesService.getDocumentProperties();
-  const clientsStr = props.getProperty('saved_clients');
+  const userProps = PropertiesService.getUserProperties();
+  let clientsStr = userProps.getProperty('saved_clients');
+  
+  // Migration from old document properties
+  if (!clientsStr) {
+    const docProps = PropertiesService.getDocumentProperties();
+    clientsStr = docProps.getProperty('saved_clients');
+    if (clientsStr) {
+      userProps.setProperty('saved_clients', clientsStr);
+    }
+  }
+  
   return clientsStr ? JSON.parse(clientsStr) : {};
 }
 
 /** Helper to save clients to properties */
 function _saveClients(clients) {
-  const props = PropertiesService.getDocumentProperties();
+  const props = PropertiesService.getUserProperties();
   props.setProperty('saved_clients', JSON.stringify(clients));
 }
 
@@ -173,6 +184,7 @@ function generateFromSelection() {
     
     generateInvoiceHTML(clientDetails, invoiceNum, forText, clientNickname, data, lowestRow);
   } catch (error) {
+    console.error(error.stack || error);
     SpreadsheetApp.getUi().alert("An error occurred: " + error.message);
   }
 }
@@ -497,6 +509,7 @@ function generateQuoteFromSelection() {
       
     ui.showModalDialog(htmlOutput, 'Quote');
   } catch (error) {
+    console.error(error.stack || error);
     SpreadsheetApp.getUi().alert("An error occurred: " + error.message);
   }
 }
@@ -685,6 +698,7 @@ function generateProjectFeeInvoiceFromSelection() {
       
     ui.showModalDialog(htmlOutput, 'Project Fee Invoice');
   } catch (error) {
+    console.error(error.stack || error);
     SpreadsheetApp.getUi().alert("An error occurred: " + error.message);
   }
 }
@@ -720,9 +734,9 @@ function savePdfToDrive(base64Data, fileName, invoiceNum, lowestRow, sendEmail, 
         .setLinkUrl(fileUrl)
         .build();
         
-      sheet.getRange(lowestRow, 7).setRichTextValue(richText);
-      sheet.getRange(lowestRow, 8).setValue(new Date()); // Column H is the generation date
-      sheet.getRange(lowestRow, 9).setValue("N"); // Column I is "N"
+      const linkCol = CONFIG.LINK_COLUMN || 7;
+      sheet.getRange(lowestRow, linkCol).setRichTextValue(richText);
+      sheet.getRange(lowestRow, linkCol + 1, 1, 2).setValues([[new Date(), "N"]]);
     }
     
     // Send email with PDF attachment if requested
@@ -739,6 +753,7 @@ function savePdfToDrive(base64Data, fileName, invoiceNum, lowestRow, sendEmail, 
     
     return file.getUrl();
   } catch (e) {
+    console.error(e.stack || e);
     throw new Error("Failed to save PDF to Google Drive: " + e.toString());
   }
 }
