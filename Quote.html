@@ -223,8 +223,9 @@
         min-height: calc(297mm - 80px);
       }
 
-      .print-btn {
-        display: none;
+      .print-btn,
+      .no-print {
+        display: none !important;
       }
     }
   </style>
@@ -336,9 +337,11 @@
       // Clone the document
       var clone = document.documentElement.cloneNode(true);
       
-      // Remove the print button and scripts from the clone
-      var btn = clone.querySelector('.print-btn');
-      if (btn) btn.parentNode.removeChild(btn);
+      // Remove any no-print elements and scripts from the clone
+      var noPrintEls = clone.querySelectorAll('.no-print');
+      for (var i = 0; i < noPrintEls.length; i++) {
+        noPrintEls[i].parentNode.removeChild(noPrintEls[i]);
+      }
       var scripts = clone.querySelectorAll('script');
       for (var i = 0; i < scripts.length; i++) {
         scripts[i].parentNode.removeChild(scripts[i]);

@@ -14,6 +14,7 @@ function onOpen() {
       .addItem('Generate Quote from Selection', 'generateQuoteFromSelection')
       .addItem('Generate Project Fee Invoice', 'generateProjectFeeInvoiceFromSelection')
       .addItem('Blank Invoice Template', 'showBlankInvoiceDialog')
+      .addItem('Blank Quote Template', 'showBlankQuoteDialog')
       .addItem('Manage Clients...', 'showManageClientsDialog')
       .addToUi();
 }
@@ -57,6 +58,14 @@ function showBlankInvoiceDialog() {
       .setHeight(650)
       .setTitle('Blank Invoice Template');
   SpreadsheetApp.getUi().showModalDialog(html, 'Blank Invoice');
+}
+
+function showBlankQuoteDialog() {
+  const html = HtmlService.createHtmlOutputFromFile('BlankQuote')
+      .setWidth(850)
+      .setHeight(650)
+      .setTitle('Blank Quote Template');
+  SpreadsheetApp.getUi().showModalDialog(html, 'Blank Quote');
 }
 
 function deleteClient(nickname) {
