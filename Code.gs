@@ -53,7 +53,9 @@ function showManageClientsDialog() {
 }
 
 function showBlankInvoiceDialog() {
-  const html = HtmlService.createHtmlOutputFromFile('BlankInvoice')
+  const template = HtmlService.createTemplateFromFile('BlankInvoice');
+  template.savedClients = _getClients();
+  const html = template.evaluate()
       .setWidth(850)
       .setHeight(650)
       .setTitle('Blank Invoice Template');
@@ -61,7 +63,9 @@ function showBlankInvoiceDialog() {
 }
 
 function showBlankQuoteDialog() {
-  const html = HtmlService.createHtmlOutputFromFile('BlankQuote')
+  const template = HtmlService.createTemplateFromFile('BlankQuote');
+  template.savedClients = _getClients();
+  const html = template.evaluate()
       .setWidth(850)
       .setHeight(650)
       .setTitle('Blank Quote Template');

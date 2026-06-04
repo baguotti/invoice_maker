@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Blank Invoice Template</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
   <style>
     :root {
       --bg: #F4F2EB;
@@ -781,30 +781,25 @@ Country</p>
     }
 
     // Load saved clients
-    let savedClients = {};
+    let savedClients = <?!= typeof savedClients !== 'undefined' ? JSON.stringify(savedClients) : '{}' ?>;
 
     function loadSavedClients() {
-      if (typeof google !== 'undefined' && google.script && google.script.run) {
-        google.script.run.withSuccessHandler(function(clients) {
-          savedClients = clients;
-          const select = document.getElementById('client-select');
-          if (select) {
-            // Clear but keep first option
-            select.innerHTML = '<option value="">-- Choose Saved Client --</option>';
-            
-            let hasClients = false;
-            for (const name in clients) {
-              const opt = document.createElement('option');
-              opt.value = name;
-              opt.textContent = name;
-              select.appendChild(opt);
-              hasClients = true;
-            }
-            if (hasClients) {
-              select.style.display = 'inline-block';
-            }
-          }
-        }).getSavedClients();
+      const select = document.getElementById('client-select');
+      if (select) {
+        // Clear but keep first option
+        select.innerHTML = '<option value="">-- Choose Saved Client --</option>';
+        
+        let hasClients = false;
+        for (const name in savedClients) {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          select.appendChild(opt);
+          hasClients = true;
+        }
+        if (hasClients) {
+          select.style.display = 'inline-block';
+        }
       }
     }
 
