@@ -15,19 +15,33 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 60px;
+      padding: 40px 0;
       color: var(--text);
-      background-color: var(--bg);
+      background-color: #E5E3DB;
+      /* A slightly darker shade to contrast the sheet */
       line-height: 1.5;
       font-size: 13px;
     }
 
-    .invoice-container {
-      max-width: 800px;
-      margin: auto;
+    .pdf-page-wrapper {
+      background-color: var(--bg);
+      box-sizing: border-box;
+      width: 800px;
+      min-height: 1110px;
+      /* Adjusted to prevent blank second page */
+      padding: 60px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      min-height: calc(100vh - 120px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .invoice-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     header {
@@ -118,7 +132,9 @@
     }
 
     th:last-child,
-    td:last-child {
+    td:last-child,
+    th.num,
+    td.num {
       padding-right: 0;
     }
 
@@ -132,6 +148,97 @@
       text-align: right;
     }
 
+    /* Row actions styling */
+    .row-actions {
+      position: absolute;
+      right: -28px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    tr:hover .row-actions {
+      opacity: 1;
+    }
+
+    .row-btn {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      color: #333;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .row-btn:hover {
+      background: #f0f0f0;
+      border-color: #666;
+    }
+
+    .row-btn.delete-btn {
+      color: #c62828;
+    }
+
+    .row-btn.delete-btn:hover {
+      background: #ffebee;
+      border-color: #c62828;
+    }
+
+    .add-row-container {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .add-row-btn {
+      background: transparent;
+      border: 1px dashed #666;
+      color: #666;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .add-row-btn:hover {
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    /* Editable Fields Styling */
+    [contenteditable="true"] {
+      border: 1px dashed transparent;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    [contenteditable="true"]:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+      border-color: #ccc;
+    }
+
+    [contenteditable="true"]:focus {
+      background-color: #ffffff;
+      border-color: var(--text);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
 
     .footer-grid {
       display: grid;
@@ -142,7 +249,7 @@
       padding-top: 60px;
     }
 
-    .footer-grid > div:last-child {
+    .footer-grid > div:nth-child(2) {
       text-align: right;
     }
 
@@ -216,16 +323,31 @@
         background-color: var(--bg);
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
-        padding: 40px;
+        padding: 0;
+      }
+
+      .pdf-page-wrapper {
+        width: 100%;
+        min-height: 100%;
+        padding: 60px;
+        box-shadow: none;
       }
 
       .invoice-container {
-        min-height: calc(297mm - 80px);
+        min-height: calc(297mm - 120px);
       }
 
       .print-btn,
+      .add-row-container,
+      .row-actions,
       .no-print {
         display: none !important;
+      }
+
+      [contenteditable="true"] {
+        border: none !important;
+        padding: 0 !important;
+        background-color: transparent !important;
       }
     }
   </style>
@@ -233,91 +355,119 @@
 
 <body>
 
-  <div class="invoice-container">
-    <header>
-      <div class="header-left">
-        <h1>Quote</h1>
+  <div class="pdf-page-wrapper">
+    <div class="invoice-container">
+      <header>
+        <div class="header-left">
+          <h1 contenteditable="true">Quote</h1>
+        </div>
+        <div class="header-right">
+          <p contenteditable="true">
+            <?= quoteDate ?>
+          </p>
+        </div>
+      </header>
+
+
+
+      <div class="billed-grid">
+        <div>
+          <h3>For:</h3>
+          <p contenteditable="true">
+            <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
+          </p>
+        </div>
+        <div>
+          <h3>Day Rate:</h3>
+          <p>
+            <span class="currency-label"><?= currency ?></span><span id="global-rate" contenteditable="true"><?= dayRate ?></span>
+          </p>
+        </div>
       </div>
-      <div class="header-right">
-        <p>
-          <?= quoteDate ?>
-        </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th class="center" style="width: 60px;">Days</th>
+            <th class="num" style="width: 100px;">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-items">
+          <? for (var i = 0; i < groupedData.length; i++) { ?>
+          <tr style="position: relative;">
+            <td style="font-weight: 700; width: 220px; vertical-align: top;">
+              <span contenteditable="true"><?= groupedData[i].item ?></span>
+            </td>
+            <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;">
+              <span contenteditable="true"><?= groupedData[i].description ?></span>
+            </td>
+            <td class="center" style="vertical-align: top;">
+              <span class="days-val" contenteditable="true"><?= groupedData[i].days ?></span>
+            </td>
+            <td class="num" style="vertical-align: top;">
+              <span class="currency-label"><?= currency ?></span><span class="amount-val" contenteditable="true"><?= groupedData[i].totalDisplay ?></span>
+            </td>
+            <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+              <div class="row-actions">
+                <button class="row-btn delete-btn" onclick="deleteRow(this)">−</button>
+              </div>
+            </td>
+          </tr>
+          <? } ?>
+        </tbody>
+        <tfoot>
+          <tr id="subtotal-row" style="display: none; border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 24px;">Subtotal</td>
+            <td class="center" style="padding-top: 24px;"><span id="subtotal-days">0</span></td>
+            <td class="num" style="padding-top: 24px;"><span class="currency-label"><?= currency ?></span><span id="subtotal-fee">0.00</span></td>
+          </tr>
+          <tr id="discount-row" style="display: none; font-size: 16px; font-weight: 700; position: relative;">
+            <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 16px;">
+              <span contenteditable="true">Discount</span> (<span id="discount-input" contenteditable="true">10%</span>)
+            </td>
+            <td class="center" style="padding-top: 16px;"></td>
+            <td class="num" style="padding-top: 16px;">
+              −<span class="currency-label"><?= currency ?></span><span id="discount-fee">0.00</span>
+            </td>
+            <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+              <div class="row-actions">
+                <button class="row-btn delete-btn" onclick="removeDiscount()" title="Remove Discount">−</button>
+              </div>
+            </td>
+          </tr>
+          <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
+            <td class="center" style="padding-top: 24px;">
+              <span id="total-days" contenteditable="true"><?= totalDays ?></span>
+            </td>
+            <td class="num" style="padding-top: 24px;">
+              <span class="currency-label"><?= currency ?></span><span id="total-fee" contenteditable="true"><?= totalFeeDisplay ?></span>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div class="add-row-container no-print" style="display: flex; gap: 12px;">
+        <button class="add-row-btn" onclick="addRow()">+ Add Line Item</button>
+        <button class="add-row-btn" id="add-discount-btn" onclick="addDiscount()">+ Add Discount</button>
       </div>
-    </header>
 
-
-
-    <div class="billed-grid">
-      <div>
-        <h3>For:</h3>
-        <p>
-          <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
-        </p>
+      <div class="footer-grid" style="grid-template-columns: 1fr;">
+        <div class="footer-section">
+          <h3 contenteditable="true">Riccardo Fusetti</h3>
+          <p contenteditable="true">Flat 25, Bellmaker Court</p>
+          <p contenteditable="true">136 St. Pauls Way, London E3 4AD</p>
+          <p contenteditable="true">079 18 993 398</p>
+          <p contenteditable="true">fusetti.riccardo@gmail.com</p>
+          <p contenteditable="true">riccardofusetti.com</p>
+        </div>
       </div>
-      <div>
-        <h3>Day Rate:</h3>
-        <p>
-          <?= currency ?><?= dayRate ?>
-        </p>
+
+      <div class="small-print" style="margin-top: 60px; font-size: 10px; color: #666; border-top: 1px solid var(--border); padding-top: 20px; line-height: 1.4; text-align: center;">
+        <p style="margin: 0;">All additional work, revisions beyond the agreed scope, or new deliverables must be approved in writing and may be subject to additional fees. Work will not commence on new requests without prior sign-off.</p>
       </div>
-    </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Description</th>
-          <th class="center" style="width: 60px;">Days</th>
-          <th class="num" style="width: 100px;">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <? for (var i = 0; i < groupedData.length; i++) { ?>
-        <tr>
-          <td style="font-weight: 700; width: 220px; vertical-align: top;">
-            <?= groupedData[i].item ?>
-          </td>
-          <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;">
-            <?= groupedData[i].description ?>
-          </td>
-          <td class="center" style="vertical-align: top;">
-            <?= groupedData[i].days ?>
-          </td>
-          <td class="num" style="vertical-align: top;">
-            <?= currency ?><?= groupedData[i].totalDisplay ?>
-          </td>
-
-        </tr>
-        <? } ?>
-      </tbody>
-      <tfoot>
-        <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
-          <td style="padding-top: 24px;">Total</td>
-          <td style="padding-top: 24px;"></td>
-          <td class="center" style="padding-top: 24px;">
-            <?= totalDays ?>
-          </td>
-          <td class="num" style="padding-top: 24px;">
-            <?= currency ?><?= totalFeeDisplay ?>
-          </td>
-
-        </tr>
-      </tfoot>
-    </table>
-
-    <div class="footer-grid" style="grid-template-columns: 1fr;">
-      <div class="footer-section">
-        <h3>Riccardo Fusetti</h3>
-        <p>Flat 25, Bellmaker Court</p>
-        <p>136 St. Pauls Way, London E3 4AD</p>
-        <p>079 18 993 398</p>
-        <p>fusetti.riccardo@gmail.com</p>
-        <p>riccardofusetti.com</p>
-      </div>
-    </div>
-
-    <div class="small-print" style="margin-top: 60px; font-size: 10px; color: #666; border-top: 1px solid var(--border); padding-top: 20px; line-height: 1.4; text-align: center;">
-      <p style="margin: 0;">All additional work, revisions beyond the agreed scope, or new deliverables must be approved in writing and may be subject to additional fees. Work will not commence on new requests without prior sign-off.</p>
     </div>
   </div>
 
@@ -331,6 +481,153 @@
   </div>
 
   <script>
+    let currencySymbol = "<?= currency ?>";
+
+    function addRow() {
+      const tbody = document.getElementById('invoice-items');
+      const tr = document.createElement('tr');
+      tr.style.position = 'relative';
+      tr.innerHTML = `
+        <td style="font-weight: 700; width: 220px; vertical-align: top;"><span contenteditable="true">New Item</span></td>
+        <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;"><span contenteditable="true">Description</span></td>
+        <td class="center" style="vertical-align: top;"><span class="days-val" contenteditable="true">0</span></td>
+        <td class="num" style="vertical-align: top;"><span class="currency-label">${currencySymbol}</span><span class="amount-val" contenteditable="true">0.00</span></td>
+        <td class="no-print" style="width: 0; padding: 0; overflow: visible; vertical-align: top;">
+          <div class="row-actions">
+            <button class="row-btn delete-btn" onclick="deleteRow(this)">−</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+      setupListeners();
+      calculateTotals();
+    }
+
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      row.remove();
+      calculateTotals();
+    }
+
+    function formatNumber(num) {
+      return Number(num).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function addDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      const discountInput = document.getElementById('discount-input');
+      if (subtotalRow) subtotalRow.style.display = 'table-row';
+      if (discountRow) discountRow.style.display = 'table-row';
+      if (btn) btn.style.display = 'none';
+      if (discountInput && (discountInput.innerText.trim() === '' || discountInput.innerText.trim() === '0')) {
+        discountInput.innerText = '10%';
+      }
+      calculateTotals();
+    }
+
+    function removeDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      if (subtotalRow) subtotalRow.style.display = 'none';
+      if (discountRow) discountRow.style.display = 'none';
+      if (btn) btn.style.display = 'inline-block';
+      const discountInput = document.getElementById('discount-input');
+      if (discountInput) discountInput.innerText = '0';
+      calculateTotals();
+    }
+
+    function calculateTotals() {
+      let totalDays = 0;
+      let subtotalFee = 0;
+      
+      const dayRateEl = document.getElementById('global-rate') || document.getElementById('day-rate');
+      const dayRate = dayRateEl ? (parseFloat(dayRateEl.innerText.replace(/[^0-9.]/g, '')) || 0) : 0;
+      
+      const rows = document.querySelectorAll('#invoice-items tr');
+
+      rows.forEach(row => {
+        const daysEl = row.querySelector('.days-val');
+        const amountEl = row.querySelector('.amount-val');
+
+        if (!daysEl || !amountEl) return;
+
+        // Parse days
+        const daysText = daysEl.innerText.replace(/[^0-9.]/g, '');
+        const isDaysEmpty = daysEl.innerText.trim() === '' || daysText === '';
+        const days = parseFloat(daysText) || 0;
+
+        if (isDaysEmpty) {
+          const amount = dayRate * 1;
+          amountEl.innerText = formatNumber(amount);
+          subtotalFee += amount;
+        } else if (days > 0) {
+          const amount = dayRate * days;
+          amountEl.innerText = formatNumber(amount);
+          subtotalFee += amount;
+          totalDays += days;
+        } else {
+          // If days = 0, just parse the manually inputted amount
+          const manualAmount = parseFloat(amountEl.innerText.replace(/[^0-9.]/g, '')) || 0;
+          subtotalFee += manualAmount;
+        }
+      });
+
+      // Check discount
+      const discountRow = document.getElementById('discount-row');
+      const isDiscountActive = discountRow && discountRow.style.display !== 'none';
+      let discountAmount = 0;
+
+      if (isDiscountActive) {
+        const discountInputEl = document.getElementById('discount-input');
+        const discountText = discountInputEl ? discountInputEl.innerText.trim() : '';
+
+        if (discountText.includes('%')) {
+          const percentage = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+          discountAmount = subtotalFee * (percentage / 100);
+        } else {
+          discountAmount = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+        }
+
+        const discountFeeEl = document.getElementById('discount-fee');
+        if (discountFeeEl) discountFeeEl.innerText = formatNumber(discountAmount);
+      }
+
+      const totalFee = Math.max(0, subtotalFee - discountAmount);
+
+      const subtotalDaysEl = document.getElementById('subtotal-days');
+      if (subtotalDaysEl) subtotalDaysEl.innerText = totalDays;
+
+      const subtotalFeeEl = document.getElementById('subtotal-fee');
+      if (subtotalFeeEl) subtotalFeeEl.innerText = formatNumber(subtotalFee);
+
+      const totalDaysEl = document.getElementById('total-days');
+      if (totalDaysEl) totalDaysEl.innerText = totalDays;
+      
+      const totalFeeEl = document.getElementById('total-fee');
+      if (totalFeeEl) totalFeeEl.innerText = formatNumber(totalFee);
+    }
+
+    function setupListeners() {
+      const dayRateEl = document.getElementById('global-rate') || document.getElementById('day-rate');
+      if (dayRateEl) {
+        dayRateEl.removeEventListener('input', calculateTotals);
+        dayRateEl.addEventListener('input', calculateTotals);
+      }
+      
+      const editableInputs = document.querySelectorAll('.days-val, .amount-val, #discount-input');
+      editableInputs.forEach(el => {
+        el.removeEventListener('input', calculateTotals);
+        el.addEventListener('input', calculateTotals);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupListeners();
+    });
+
     function printPdf() {
       var title = <?= JSON.stringify(documentTitle) ?>;
       

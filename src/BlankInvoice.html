@@ -171,7 +171,9 @@
     }
 
     th:last-child,
-    td:last-child {
+    td:last-child,
+    th.num,
+    td.num {
       padding-right: 0;
     }
 
@@ -188,7 +190,7 @@
     /* Row actions styling */
     .row-actions {
       position: absolute;
-      right: -45px;
+      right: -28px;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
@@ -266,7 +268,7 @@
       padding-top: 60px;
     }
 
-    .footer-grid>div:last-child {
+    .footer-grid>div:nth-child(2) {
       text-align: right;
     }
 
@@ -488,6 +490,25 @@ Country</p>
           <!-- Starts fully blank for manual entry -->
         </tbody>
         <tfoot>
+          <tr id="subtotal-row" style="display: none; border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 24px;">Subtotal</td>
+            <td class="center" style="padding-top: 24px;"><span id="subtotal-days">0</span></td>
+            <td class="num" style="padding-top: 24px;"><span class="currency-label">£</span><span id="subtotal-fee">0.00</span></td>
+          </tr>
+          <tr id="discount-row" style="display: none; font-size: 16px; font-weight: 700; position: relative;">
+            <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 16px;">
+              <span contenteditable="true">Discount</span> (<span id="discount-input" contenteditable="true">10%</span>)
+            </td>
+            <td class="center" style="padding-top: 16px;"></td>
+            <td class="num" style="padding-top: 16px;">
+              −<span class="currency-label">£</span><span id="discount-fee">0.00</span>
+            </td>
+            <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+              <div class="row-actions">
+                <button class="row-btn delete-btn" onclick="removeDiscount()" title="Remove Discount">−</button>
+              </div>
+            </td>
+          </tr>
           <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
             <td colspan="3" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
             <td class="center" id="total-days" style="padding-top: 24px;">0</td>
@@ -498,8 +519,9 @@ Country</p>
         </tfoot>
       </table>
 
-      <div class="add-row-container no-print">
+      <div class="add-row-container no-print" style="display: flex; gap: 12px;">
         <button class="add-row-btn" onclick="addRow()">+ Add Line Item</button>
+        <button class="add-row-btn" id="add-discount-btn" onclick="addDiscount()">+ Add Discount</button>
       </div>
 
       <div class="footer-grid">
@@ -618,9 +640,35 @@ Country</p>
       return Number(num).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    function addDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      const discountInput = document.getElementById('discount-input');
+      if (subtotalRow) subtotalRow.style.display = 'table-row';
+      if (discountRow) discountRow.style.display = 'table-row';
+      if (btn) btn.style.display = 'none';
+      if (discountInput && (discountInput.innerText.trim() === '' || discountInput.innerText.trim() === '0')) {
+        discountInput.innerText = '10%';
+      }
+      calculateTotals();
+    }
+
+    function removeDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      if (subtotalRow) subtotalRow.style.display = 'none';
+      if (discountRow) discountRow.style.display = 'none';
+      if (btn) btn.style.display = 'inline-block';
+      const discountInput = document.getElementById('discount-input');
+      if (discountInput) discountInput.innerText = '0';
+      calculateTotals();
+    }
+
     function calculateTotals() {
       let totalDays = 0;
-      let totalFee = 0;
+      let subtotalFee = 0;
       const rows = document.querySelectorAll('#invoice-items tr');
 
       rows.forEach(row => {
@@ -636,21 +684,51 @@ Country</p>
 
         // Parse days
         const daysText = daysEl.innerText.replace(/[^0-9.]/g, '');
-        const days = parseFloat(daysText) || 0;
+        const isDaysEmpty = daysEl.innerText.trim() === '' || daysText === '';
+        const effectiveDays = isDaysEmpty ? 1 : (parseFloat(daysText) || 0);
+        const actualDays = isDaysEmpty ? 0 : (parseFloat(daysText) || 0);
 
-        const amount = rate * days;
+        const amount = rate * effectiveDays;
         amountEl.innerText = formatNumber(amount);
 
-        totalDays += days;
-        totalFee += amount;
+        totalDays += actualDays;
+        subtotalFee += amount;
       });
+
+      // Check discount
+      const discountRow = document.getElementById('discount-row');
+      const isDiscountActive = discountRow && discountRow.style.display !== 'none';
+      let discountAmount = 0;
+
+      if (isDiscountActive) {
+        const discountInputEl = document.getElementById('discount-input');
+        const discountText = discountInputEl ? discountInputEl.innerText.trim() : '';
+
+        if (discountText.includes('%')) {
+          const percentage = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+          discountAmount = subtotalFee * (percentage / 100);
+        } else {
+          discountAmount = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+        }
+
+        const discountFeeEl = document.getElementById('discount-fee');
+        if (discountFeeEl) discountFeeEl.innerText = formatNumber(discountAmount);
+      }
+
+      const totalFee = Math.max(0, subtotalFee - discountAmount);
+
+      const subtotalDaysEl = document.getElementById('subtotal-days');
+      if (subtotalDaysEl) subtotalDaysEl.innerText = totalDays;
+
+      const subtotalFeeEl = document.getElementById('subtotal-fee');
+      if (subtotalFeeEl) subtotalFeeEl.innerText = formatNumber(subtotalFee);
 
       document.getElementById('total-days').innerText = totalDays;
       document.getElementById('total-fee').innerText = formatNumber(totalFee);
     }
 
     function setupListeners() {
-      const editableInputs = document.querySelectorAll('.rate-val, .days-val');
+      const editableInputs = document.querySelectorAll('.rate-val, .days-val, #discount-input');
       editableInputs.forEach(el => {
         // Remove existing listener to prevent duplicates
         el.removeEventListener('input', calculateTotals);

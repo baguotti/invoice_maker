@@ -134,7 +134,9 @@
     }
 
     th:last-child,
-    td:last-child {
+    td:last-child,
+    th.num,
+    td.num {
       padding-right: 0;
     }
 
@@ -148,6 +150,97 @@
       text-align: right;
     }
 
+    /* Row actions styling */
+    .row-actions {
+      position: absolute;
+      right: -28px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      gap: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    tr:hover .row-actions {
+      opacity: 1;
+    }
+
+    .row-btn {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      color: #333;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+    }
+
+    .row-btn:hover {
+      background: #f0f0f0;
+      border-color: #666;
+    }
+
+    .row-btn.delete-btn {
+      color: #c62828;
+    }
+
+    .row-btn.delete-btn:hover {
+      background: #ffebee;
+      border-color: #c62828;
+    }
+
+    .add-row-container {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .add-row-btn {
+      background: transparent;
+      border: 1px dashed #666;
+      color: #666;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .add-row-btn:hover {
+      background: rgba(0, 0, 0, 0.03);
+      color: var(--text);
+      border-color: var(--text);
+    }
+
+    /* Editable Fields Styling */
+    [contenteditable="true"] {
+      border: 1px dashed transparent;
+      padding: 2px 4px;
+      border-radius: 3px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    [contenteditable="true"]:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+      border-color: #ccc;
+    }
+
+    [contenteditable="true"]:focus {
+      background-color: #ffffff;
+      border-color: var(--text);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+    }
 
     .footer-grid {
       display: grid;
@@ -158,7 +251,7 @@
       padding-top: 60px;
     }
 
-    .footer-grid>div:last-child {
+    .footer-grid>div:nth-child(2) {
       text-align: right;
     }
 
@@ -310,8 +403,17 @@
         min-height: calc(297mm - 120px);
       }
 
-      .print-btn {
-        display: none;
+      .print-btn,
+      .add-row-container,
+      .row-actions,
+      .no-print {
+        display: none !important;
+      }
+
+      [contenteditable="true"] {
+        border: none !important;
+        padding: 0 !important;
+        background-color: transparent !important;
       }
     }
   </style>
@@ -323,14 +425,14 @@
     <div class="invoice-container">
       <header>
         <div class="header-left">
-          <h1>Invoice</h1>
+          <h1 contenteditable="true">Invoice</h1>
         </div>
         <div class="header-right">
-          <p>
+          <p contenteditable="true">
             <?= currentDate ?>
           </p>
           <p class="bold">Invoice No.
-            <?= invoiceNum ?>
+            <span contenteditable="true"><?= invoiceNum ?></span>
           </p>
         </div>
       </header>
@@ -340,13 +442,13 @@
       <div class="billed-grid">
         <div>
           <h3>Billed to:</h3>
-          <p>
+          <p contenteditable="true">
             <?!= clientDetails ? clientDetails.replace(/\n/g, '<br>') : '' ?>
           </p>
         </div>
         <div>
           <h3>For:</h3>
-          <p>
+          <p contenteditable="true">
             <?= forText ?>
           </p>
         </div>
@@ -360,54 +462,79 @@
             <th class="num">Cost</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="invoice-items">
           <? for (var i = 0; i < groupedData.length; i++) { ?>
-          <tr>
+          <tr style="position: relative;">
             <td style="font-weight: 700; width: 220px; vertical-align: top;">
-              <?= groupedData[i].item ?>
+              <span contenteditable="true"><?= groupedData[i].item ?></span>
             </td>
             <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;">
-              <?= groupedData[i].description ?>
+              <span contenteditable="true"><?= groupedData[i].description ?></span>
             </td>
             <td class="num" style="vertical-align: top;">
-              <?= currency ?>
-              <?= groupedData[i].costDisplay ?>
+              <span class="currency-label"><?= currency ?></span><span class="amount-val" contenteditable="true"><?= groupedData[i].costDisplay ?></span>
+            </td>
+            <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+              <div class="row-actions">
+                <button class="row-btn delete-btn" onclick="deleteRow(this)">−</button>
+              </div>
             </td>
           </tr>
           <? } ?>
         </tbody>
         <tfoot>
+          <tr id="subtotal-row" style="display: none; border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
+            <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 24px;">Subtotal</td>
+            <td class="num" style="padding-top: 24px;"><span class="currency-label"><?= currency ?></span><span id="subtotal-fee">0.00</span></td>
+          </tr>
+          <tr id="discount-row" style="display: none; font-size: 16px; font-weight: 700; position: relative;">
+            <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 16px;">
+              <span contenteditable="true">Discount</span> (<span id="discount-input" contenteditable="true">10%</span>)
+            </td>
+            <td class="num" style="padding-top: 16px;">
+              −<span class="currency-label"><?= currency ?></span><span id="discount-fee">0.00</span>
+            </td>
+            <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+              <div class="row-actions">
+                <button class="row-btn delete-btn" onclick="removeDiscount()" title="Remove Discount">−</button>
+              </div>
+            </td>
+          </tr>
           <tr style="border-top: 1px solid var(--border); font-size: 16px; font-weight: 700;">
             <td colspan="2" style="text-align: right; padding-right: 20px; padding-top: 24px;">Total</td>
             <td class="num" style="padding-top: 24px;">
-              <?= currency ?>
-              <?= totalFeeDisplay ?>
+              <span class="currency-label"><?= currency ?></span><span id="total-fee" contenteditable="true"><?= totalFeeDisplay ?></span>
             </td>
           </tr>
         </tfoot>
       </table>
 
+      <div class="add-row-container no-print" style="display: flex; gap: 12px;">
+        <button class="add-row-btn" onclick="addRow()">+ Add Line Item</button>
+        <button class="add-row-btn" id="add-discount-btn" onclick="addDiscount()">+ Add Discount</button>
+      </div>
+
       <div class="footer-grid">
         <div class="footer-section">
-          <h3>Riccardo Fusetti</h3>
-          <p>Flat 25, Bellmaker Court</p>
-          <p>136 St. Pauls Way, London E3 4AD</p>
-          <p>079 18 993 398</p>
-          <p>fusetti.riccardo@gmail.com</p>
-          <p>riccardofusetti.com</p>
+          <h3 contenteditable="true">Riccardo Fusetti</h3>
+          <p contenteditable="true">Flat 25, Bellmaker Court</p>
+          <p contenteditable="true">136 St. Pauls Way, London E3 4AD</p>
+          <p contenteditable="true">079 18 993 398</p>
+          <p contenteditable="true">fusetti.riccardo@gmail.com</p>
+          <p contenteditable="true">riccardofusetti.com</p>
         </div>
         <div class="footer-section">
           <h3>Payment Information</h3>
           <? if (isUs) { ?>
-          <p>Account type: Checking</p>
-          <p>Routing number (for wire and ACH): 026073150</p>
-          <p>Account number: 8312949203</p>
-          <p>Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United
+          <p contenteditable="true">Account type: Checking</p>
+          <p contenteditable="true">Routing number (for wire and ACH): 026073150</p>
+          <p contenteditable="true">Account number: 8312949203</p>
+          <p contenteditable="true">Bank name and address: Community Federal Savings Bank, 89-16 Jamaica Ave, Woodhaven, NY, 11421, United
             States</p>
           <? } else { ?>
-          <p>Sort Code: 04-00-06</p>
-          <p>Account Number: 91557044</p>
-          <p>IBAN: GB96 MONZ 0400 0691 5570 44</p>
+          <p contenteditable="true">Sort Code: 04-00-06</p>
+          <p contenteditable="true">Account Number: 91557044</p>
+          <p contenteditable="true">IBAN: GB96 MONZ 0400 0691 5570 44</p>
           <? } ?>
         </div>
       </div>
@@ -446,6 +573,119 @@
   </div>
 
   <script>
+    let currencySymbol = "<?= currency ?>";
+
+    function addRow() {
+      const tbody = document.getElementById('invoice-items');
+      const tr = document.createElement('tr');
+      tr.style.position = 'relative';
+      tr.innerHTML = `
+        <td style="font-weight: 700; width: 220px; vertical-align: top;"><span contenteditable="true">New Item</span></td>
+        <td style="font-size: 11px; color: #444; line-height: 1.4; vertical-align: top;"><span contenteditable="true">Description</span></td>
+        <td class="num" style="vertical-align: top;"><span class="currency-label">${currencySymbol}</span><span class="amount-val" contenteditable="true">0.00</span></td>
+        <td class="no-print" style="width: 0; padding: 0; overflow: visible;">
+          <div class="row-actions">
+            <button class="row-btn delete-btn" onclick="deleteRow(this)">−</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+      setupListeners();
+      calculateTotals();
+    }
+
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      row.remove();
+      calculateTotals();
+    }
+
+    function formatNumber(num) {
+      return Number(num).toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function addDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      const discountInput = document.getElementById('discount-input');
+      if (subtotalRow) subtotalRow.style.display = 'table-row';
+      if (discountRow) discountRow.style.display = 'table-row';
+      if (btn) btn.style.display = 'none';
+      if (discountInput && (discountInput.innerText.trim() === '' || discountInput.innerText.trim() === '0')) {
+        discountInput.innerText = '10%';
+      }
+      calculateTotals();
+    }
+
+    function removeDiscount() {
+      const subtotalRow = document.getElementById('subtotal-row');
+      const discountRow = document.getElementById('discount-row');
+      const btn = document.getElementById('add-discount-btn');
+      if (subtotalRow) subtotalRow.style.display = 'none';
+      if (discountRow) discountRow.style.display = 'none';
+      if (btn) btn.style.display = 'inline-block';
+      const discountInput = document.getElementById('discount-input');
+      if (discountInput) discountInput.innerText = '0';
+      calculateTotals();
+    }
+
+    function calculateTotals() {
+      let subtotalFee = 0;
+      const rows = document.querySelectorAll('#invoice-items tr');
+
+      rows.forEach(row => {
+        const amountEl = row.querySelector('.amount-val');
+        if (!amountEl) return;
+
+        const amountText = amountEl.innerText.replace(/[^0-9.]/g, '');
+        const amount = parseFloat(amountText) || 0;
+        
+        subtotalFee += amount;
+      });
+
+      // Check discount
+      const discountRow = document.getElementById('discount-row');
+      const isDiscountActive = discountRow && discountRow.style.display !== 'none';
+      let discountAmount = 0;
+
+      if (isDiscountActive) {
+        const discountInputEl = document.getElementById('discount-input');
+        const discountText = discountInputEl ? discountInputEl.innerText.trim() : '';
+
+        if (discountText.includes('%')) {
+          const percentage = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+          discountAmount = subtotalFee * (percentage / 100);
+        } else {
+          discountAmount = parseFloat(discountText.replace(/[^0-9.]/g, '')) || 0;
+        }
+
+        const discountFeeEl = document.getElementById('discount-fee');
+        if (discountFeeEl) discountFeeEl.innerText = formatNumber(discountAmount);
+      }
+
+      const totalFee = Math.max(0, subtotalFee - discountAmount);
+
+      const subtotalFeeEl = document.getElementById('subtotal-fee');
+      if (subtotalFeeEl) subtotalFeeEl.innerText = formatNumber(subtotalFee);
+
+      const totalFeeEl = document.getElementById('total-fee');
+      if (totalFeeEl) totalFeeEl.innerText = formatNumber(totalFee);
+    }
+
+    function setupListeners() {
+      const editableInputs = document.querySelectorAll('.amount-val, #discount-input');
+      editableInputs.forEach(el => {
+        el.removeEventListener('input', calculateTotals);
+        el.addEventListener('input', calculateTotals);
+      });
+    }
+
+    // Initialize listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      setupListeners();
+    });
+
     function savePdf(mode) {
       // Prevent scroll-offset rendering bugs by scrolling to top
       window.scrollTo(0, 0);

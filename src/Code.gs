@@ -20,6 +20,18 @@ function onOpen() {
       .addToUi();
 }
 
+/** Helper to clean multiline text from cells, removing leading/trailing spaces per line and non-breaking spaces */
+function cleanCellText(val) {
+  if (val === null || val === undefined) return "";
+  return String(val)
+    .replace(/[\u00A0\u200B\u200C\u200D\uFEFF]/g, ' ')
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line !== "")
+    .join('\n')
+    .trim();
+}
+
 /** Helper to get clients from properties */
 function _getClients() {
   const userProps = PropertiesService.getUserProperties();
@@ -396,8 +408,8 @@ function generateQuoteFromSelection() {
       const row = data[i];
       
       const colA = String(row[0]).trim();
-      const colB = String(row[1]).trim();
-      const colC = String(row[2]).trim();
+      const colB = cleanCellText(row[1]);
+      const colC = cleanCellText(row[2]);
       const colD = String(row[3]).trim();
       const colF = String(row[5]).trim();
       
@@ -593,8 +605,8 @@ function generateProjectFeeInvoiceFromSelection() {
       }
       
       if (headerFound) {
-        const itemVal = String(row[itemColIndex]).trim();
-        const descVal = String(row[descColIndex]).trim();
+        const itemVal = cleanCellText(row[itemColIndex]);
+        const descVal = cleanCellText(row[descColIndex]);
         let costVal = String(displayData[i][costColIndex]).trim();
         
         if (itemVal.toUpperCase() === "TOTAL" || colA.toUpperCase() === "TOTAL" || String(row[1]).trim().toUpperCase() === "TOTAL") {
